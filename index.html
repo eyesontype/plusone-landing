@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLUS ONE — Clean &amp; Refresh, Design for Athlete</title>
+<style>
+/* ── Fonts ── */
+@font-face { font-family:"Alegreya Sans SC"; src:url("fonts/AlegreyaSansSC-Bold.ttf") format("truetype"); font-weight:700; }
+@font-face { font-family:"Alegreya Sans SC"; src:url("fonts/AlegreyaSansSC-Black.ttf") format("truetype"); font-weight:900; }
+@font-face { font-family:"Mona Sans"; src:url("fonts/MonaSans-VariableFont.ttf") format("truetype"); font-weight:100 900; font-stretch:75% 125%; }
+@font-face { font-family:"Noto Sans TC"; src:url("fonts/NotoSansTC-VariableFont.ttf") format("truetype"); font-weight:100 900; }
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background: #fff;
+  color: #111;
+  font-family: "Mona Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --black:  #111111;
+  --white:  #ffffff;
+  --off:    #f7f5f2;
+  --orange: #FF643C;
+  --muted:  #888;
+  --font-d: "Alegreya Sans SC", Georgia, serif;
+  --font-b: "Mona Sans", sans-serif;
+  --font-zh:"Noto Sans TC", sans-serif;
+}
+
+/* ── Reveal ── */
+.fade { opacity:0; transform:translateY(20px); transition: opacity 1s ease, transform 1s ease; }
+.fade.on { opacity:1; transform:translateY(0); }
+.fade-slow { opacity:0; transition: opacity 1.4s ease; }
+.fade-slow.on { opacity:1; }
+.d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s}
+
+/* ══════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════ */
+#nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  transition: background .3s;
+}
+#nav.bg {
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.nav-logo { height:56px; object-fit:contain; }
+.nav-logo-light { display:none; }
+.nav-logo-dark  { display:block; }
+#nav.inv .nav-logo-dark  { display:none; }
+#nav.inv .nav-logo-light { display:block; }
+
+#nav nav { display:flex; gap:28px; }
+#nav nav a {
+  font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  color: var(--black); opacity:.45; transition:opacity .15s;
+}
+#nav.inv nav a { color: var(--white); }
+#nav nav a:hover { opacity:1; }
+.nav-cta {
+  font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:8px 20px; border:1px solid rgba(0,0,0,.25); border-radius:999px;
+  color:var(--black); transition:background .15s, color .15s, border-color .15s;
+}
+#nav.inv .nav-cta { color:var(--white); border-color:rgba(255,255,255,.3); }
+.nav-cta:hover { background:var(--orange); border-color:var(--orange); color:#fff; }
+
+/* ══════════════════════════════════════════════
+   HERO — white, centered, editorial
+══════════════════════════════════════════════ */
+#hero {
+  background: var(--white);
+  padding: 160px 40px 120px;
+  text-align: center;
+  position: relative;
+}
+.hero-brand {
+  font-size: 11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color: var(--muted); margin-bottom: 32px;
+}
+.hero-title {
+  font-family: var(--font-b);
+  font-size: clamp(100px, 18vw, 220px);
+  font-weight: 900; line-height: .9;
+  letter-spacing: -.03em; color: var(--black);
+  margin-bottom: 0;
+}
+.hero-title .o { color: var(--orange); }
+.hero-sub-zh {
+  font-family: var(--font-zh);
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 400; line-height:1.8;
+  color: var(--muted);
+  max-width: 400px; margin: 36px auto 0;
+}
+.hero-cta-wrap { margin-top: 40px; }
+.hero-cta {
+  display: inline-block;
+  font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  padding: 13px 32px; border:1.5px solid var(--black); border-radius:999px;
+  color:var(--black); transition: background .15s, color .15s;
+  cursor:pointer; background:none;
+}
+.hero-cta:hover { background:var(--black); color:var(--white); }
+
+/* ══════════════════════════════════════════════
+   INTRO TEXT — centered, wide
+══════════════════════════════════════════════ */
+.intro-text {
+  text-align: center;
+  padding: 120px 40px;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+.intro-text p {
+  font-family: var(--font-zh);
+  font-size: clamp(16px, 1.8vw, 22px);
+  line-height: 1.9; color: var(--black);
+  max-width: 600px; margin: 0 auto;
+  font-weight: 400;
+}
+.intro-text .en {
+  font-family: var(--font-b);
+  font-size: 13px; letter-spacing:.04em;
+  color: var(--muted); display:block; margin-top:12px;
+}
+
+/* ══════════════════════════════════════════════
+   PRODUCT HERO IMAGE — large centered float
+══════════════════════════════════════════════ */
+.product-hero {
+  position: relative;
+  overflow: hidden;
+}
+.product-hero-img {
+  width: 100%; height: 85vh; min-height:560px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.product-hero-img-inner {
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  position:relative; z-index:2;
+}
+.product-hero-logo { width:200px; }
+.product-hero-placeholder {
+  font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  opacity:.3;
+}
+.product-hero-vol {
+  position:absolute; bottom:28px; right:28px;
+  font-size:11px; font-weight:700; letter-spacing:.06em;
+  padding:5px 12px; border-radius:999px;
+}
+
+/* text block under product image */
+.product-caption {
+  padding: 72px 40px 100px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.product-caption-label {
+  font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color: var(--muted); margin-bottom:20px;
+}
+.product-caption-name {
+  font-family: var(--font-zh);
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 900; line-height:1.15; color:var(--black);
+  margin-bottom: 20px;
+}
+.product-caption-desc {
+  font-family: var(--font-zh);
+  font-size:15px; line-height:1.85; color:rgba(0,0,0,.5);
+  max-width: 480px; margin: 0 auto;
+}
+.product-caption-pills {
+  display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:24px;
+}
+.product-caption-pill {
+  font-size:12px; font-weight:600; padding:6px 16px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.18); color:rgba(0,0,0,.6);
+}
+.product-caption-scent {
+  margin-top:16px; font-size:12px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted);
+}
+.product-caption-scent span { font-weight:400; letter-spacing:0; text-transform:none; font-family:var(--font-zh); color:#555; font-size:13px; margin-left:6px; }
+
+/* ══════════════════════════════════════════════
+   FULL-BLEED DARK STATEMENT
+══════════════════════════════════════════════ */
+.dark-statement {
+  background: var(--black);
+  padding: 160px 40px;
+  text-align: center;
+  position:relative; overflow:hidden;
+}
+.dark-statement-watermark {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-family:var(--font-b); font-size:clamp(200px,30vw,420px); font-weight:900;
+  color:rgba(255,255,255,.03); line-height:1;
+  user-select:none; pointer-events:none; letter-spacing:-.03em; white-space:nowrap;
+}
+.dark-statement-label {
+  font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.3); margin-bottom:24px;
+  display:flex; align-items:center; justify-content:center; gap:12px;
+}
+.dark-statement-label::before,
+.dark-statement-label::after { content:''; width:28px; height:1px; background:rgba(255,255,255,.2); }
+.dark-statement-text {
+  font-family: var(--font-zh);
+  font-size: clamp(28px, 4vw, 56px);
+  font-weight: 900; line-height:1.25; color:var(--white);
+  max-width: 700px; margin: 0 auto;
+  position:relative; z-index:1;
+}
+.dark-statement-text .accent { color:var(--orange); }
+.dark-statement-sub {
+  font-family: var(--font-zh);
+  font-size:15px; line-height:1.8; color:rgba(255,255,255,.45);
+  max-width:440px; margin:28px auto 0;
+  position:relative; z-index:1;
+}
+
+/* ══════════════════════════════════════════════
+   OUT! PILLARS — centered, full width
+══════════════════════════════════════════════ */
+.out-pillars {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgba(0,0,0,.08);
+  border-bottom:1px solid rgba(0,0,0,.08);
+}
+.out-pillar {
+  padding:80px 56px;
+  border-right:1px solid rgba(0,0,0,.08);
+  text-align:center;
+  transition:background .2s;
+}
+.out-pillar:last-child { border-right:none; }
+.out-pillar:hover { background:var(--off); }
+.out-pillar-num {
+  font-family:var(--font-b); font-size:11px; font-weight:700;
+  letter-spacing:.1em; color:rgba(0,0,0,.18); margin-bottom:16px;
+}
+.out-pillar-word {
+  font-family:var(--font-b); font-size:clamp(48px,5vw,72px); font-weight:900;
+  color:var(--orange); line-height:1; letter-spacing:-.02em; margin-bottom:20px;
+}
+.out-pillar-title {
+  font-family:var(--font-zh); font-size:18px; font-weight:900;
+  color:var(--black); margin-bottom:12px; line-height:1.2;
+}
+.out-pillar-desc {
+  font-family:var(--font-zh); font-size:14px; line-height:1.85;
+  color:rgba(0,0,0,.5);
+}
+
+/* ══════════════════════════════════════════════
+   INGREDIENTS — left text + right large image
+══════════════════════════════════════════════ */
+.ingredients-section {
+  border-bottom:1px solid rgba(0,0,0,.07);
+}
+.ing-row {
+  display:grid; grid-template-columns:1fr 1fr;
+  min-height:70vh;
+}
+.ing-row.flip { direction:rtl; }
+.ing-row.flip > * { direction:ltr; }
+
+.ing-image-col {
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  min-height:480px;
+}
+.ing-image-inner {
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  position:relative; z-index:1;
+}
+.ing-image-logo { width:160px; }
+.ing-image-placeholder {
+  font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  opacity:.25;
+}
+.ing-vol {
+  position:absolute; bottom:24px; right:24px;
+  font-size:11px; font-weight:700; letter-spacing:.06em;
+  padding:4px 12px; border-radius:999px;
+}
+
+.ing-text-col {
+  padding: 80px 72px;
+  display:flex; flex-direction:column; justify-content:center;
+  border-left:1px solid rgba(0,0,0,.07);
+}
+.ing-row.flip .ing-text-col { border-left:none; border-right:1px solid rgba(0,0,0,.07); }
+
+.ing-label {
+  font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:24px;
+  display:flex; align-items:center; gap:10px;
+}
+.ing-label::before { content:''; width:24px; height:1px; background:var(--muted); }
+.ing-product-name {
+  font-family:var(--font-zh); font-size:clamp(28px,3vw,42px);
+  font-weight:900; line-height:1.15; color:var(--black); margin-bottom:10px;
+}
+.ing-product-en {
+  font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(0,0,0,.3); margin-bottom:28px;
+}
+.ing-product-desc {
+  font-family:var(--font-zh); font-size:14px; line-height:1.85;
+  color:rgba(0,0,0,.55); margin-bottom:40px; max-width:340px;
+}
+.ing-divider { width:40px; height:1px; background:rgba(0,0,0,.12); margin-bottom:32px; }
+.ing-items { display:flex; flex-direction:column; gap:0; }
+.ing-item {
+  padding:16px 0;
+  border-bottom:1px solid rgba(0,0,0,.07);
+  display:flex; align-items:flex-start; gap:14px;
+}
+.ing-item:first-child { border-top:1px solid rgba(0,0,0,.07); }
+.ing-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:7px; }
+.ing-zh { font-family:var(--font-zh); font-size:14px; font-weight:700; color:var(--black); }
+.ing-en { font-size:11px; color:rgba(0,0,0,.3); letter-spacing:.04em; margin-top:2px; }
+.ing-desc { font-family:var(--font-zh); font-size:12px; line-height:1.7; color:rgba(0,0,0,.45); margin-top:4px; }
+.ing-scent {
+  margin-top:20px; font-size:11px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:rgba(0,0,0,.3);
+}
+.ing-scent span { font-weight:400; letter-spacing:0; text-transform:none; font-family:var(--font-zh); font-size:13px; color:#555; margin-left:6px; }
+
+/* ══════════════════════════════════════════════
+   PHILOSOPHY — centered, white
+══════════════════════════════════════════════ */
+#philosophy {
+  padding:160px 40px;
+  text-align:center;
+  background:var(--white);
+  border-bottom:1px solid rgba(0,0,0,.07);
+}
+.phi-label {
+  font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:32px;
+}
+.phi-statement {
+  font-family:var(--font-zh);
+  font-size:clamp(28px, 4vw, 52px);
+  font-weight:900; line-height:1.25; color:var(--black);
+  max-width:600px; margin:0 auto 32px;
+}
+.phi-body {
+  font-family:var(--font-zh); font-size:15px; line-height:1.95;
+  color:rgba(0,0,0,.5); max-width:500px; margin:0 auto;
+}
+.phi-tags { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:36px; }
+.phi-tag {
+  font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:7px 18px; border-radius:999px; border:1px solid rgba(0,0,0,.18); color:rgba(0,0,0,.5);
+}
+
+.phi-uses {
+  margin-top:80px;
+  max-width:560px; margin-left:auto; margin-right:auto;
+}
+.phi-use-row {
+  padding:20px 0;
+  border-bottom:1px solid rgba(0,0,0,.07);
+  display:flex; align-items:center; gap:20px;
+  text-align:left;
+}
+.phi-use-row:first-child { border-top:1px solid rgba(0,0,0,.07); }
+.phi-use-num {
+  font-family:var(--font-b); font-size:12px; font-weight:700;
+  color:rgba(0,0,0,.2); min-width:32px; letter-spacing:.06em;
+}
+.phi-use-text {
+  font-family:var(--font-zh); font-size:16px; font-weight:500; color:var(--black);
+}
+
+/* ══════════════════════════════════════════════
+   SPECS — editorial full-width 4-col
+══════════════════════════════════════════════ */
+#specs {
+  background: var(--off);
+  padding: 140px 0 0;
+  overflow: hidden;
+}
+.specs-header {
+  padding: 0 48px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 80px;
+}
+.specs-label {
+  font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:20px;
+}
+.specs-title {
+  font-family:var(--font-zh);
+  font-size:clamp(28px,3.5vw,44px);
+  font-weight:900; line-height:1.1; color:var(--black);
+}
+.specs-sub {
+  font-family:var(--font-zh); font-size:14px; line-height:1.75;
+  color:rgba(0,0,0,.45); max-width:220px; text-align:right;
+}
+.specs-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(0,0,0,.08);
+}
+.spec-item {
+  border-right:1px solid rgba(0,0,0,.08);
+  overflow:hidden; display:flex; flex-direction:column;
+  background:var(--off);
+  transition:background .3s;
+}
+.spec-item:last-child { border-right:none; }
+.spec-item:hover { background:#eae6df; }
+.spec-img-wrap {
+  height:38vh; min-height:240px;
+  overflow:hidden; position:relative; flex-shrink:0;
+}
+.spec-img {
+  width:100%; height:115%; object-fit:cover; display:block;
+  transition:transform .8s cubic-bezier(.16,1,.3,1);
+  transform-origin:center bottom;
+}
+.spec-item:hover .spec-img { transform:scale(1.07) translateY(-2%); }
+.spec-body { padding:32px 36px 52px; }
+.spec-num { font-family:var(--font-b); font-size:11px; font-weight:700; letter-spacing:.08em; color:rgba(0,0,0,.2); margin-bottom:16px; }
+.spec-title { font-family:var(--font-zh); font-size:18px; font-weight:700; color:var(--black); margin-bottom:10px; line-height:1.2; }
+.spec-desc { font-family:var(--font-zh); font-size:13px; line-height:1.8; color:rgba(0,0,0,.5); }
+
+/* ── Blur-in text reveal ── */
+.blur-in {
+  opacity:0; filter:blur(10px); transform:translateY(14px);
+  transition: opacity 1.1s ease, filter 1.1s ease, transform 1.1s ease;
+}
+.blur-in.on { opacity:1; filter:blur(0); transform:translateY(0); }
+
+/* ── Parallax image (overflow container clips excess) ── */
+.parallax-img { will-change:transform; }
+
+/* ══════════════════════════════════════════════
+   TESTIMONIAL — white, centered, carousel
+══════════════════════════════════════════════ */
+#testimonial {
+  background:var(--white);
+  padding:140px 40px;
+  text-align:center;
+  border-top:1px solid rgba(0,0,0,.07);
+}
+.t-section-label {
+  font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:72px;
+}
+.t-carousel { position:relative; overflow:hidden; max-width:680px; margin:0 auto; }
+.t-track { display:flex; transition:transform .6s cubic-bezier(.4,0,.2,1); }
+.t-slide { min-width:100%; flex-shrink:0; }
+.t-avatar {
+  width:96px; height:96px; border-radius:50%;
+  object-fit:cover; margin:0 auto 16px;
+  border:3px solid rgba(0,0,0,.08);
+  display:block;
+}
+.t-quote {
+  font-family:var(--font-zh); font-size:clamp(17px,2vw,22px);
+  font-weight:400; line-height:1.85; color:var(--black);
+}
+.t-sep { width:32px; height:1px; background:rgba(0,0,0,.15); margin:28px auto; }
+.t-name { font-size:14px; font-weight:700; letter-spacing:.04em; color:var(--black); }
+.t-role { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+
+.t-controls { display:flex; align-items:center; justify-content:center; gap:16px; margin-top:52px; }
+.t-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(0,0,0,.15); border:none; cursor:pointer;
+  transition:background .2s, transform .2s; padding:0;
+}
+.t-dot.active { background:var(--black); transform:scale(1.4); }
+.t-arrow {
+  width:40px; height:40px; border-radius:50%;
+  background:transparent; border:1px solid rgba(0,0,0,.18);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  color:rgba(0,0,0,.5);
+  transition:border-color .15s, color .15s, background .15s;
+}
+.t-arrow:hover { background:var(--black); border-color:var(--black); color:var(--white); }
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer {
+  background:var(--black); color:var(--white);
+  padding:80px 40px 40px;
+}
+.footer-inner {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px;
+  padding-bottom:56px; border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:28px;
+}
+.footer-brand-desc {
+  font-family:var(--font-zh); font-size:13px; line-height:1.75;
+  color:rgba(255,255,255,.3); max-width:200px; margin-top:20px;
+}
+.footer-nl { display:flex; margin-top:24px; }
+.footer-nl input {
+  flex:1; padding:10px 14px;
+  font-family:var(--font-b); font-size:12px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+  border-right:none; border-radius:999px 0 0 999px; color:var(--white); outline:none;
+}
+.footer-nl input::placeholder { color:rgba(255,255,255,.2); }
+.footer-nl button {
+  padding:10px 18px; font-size:11px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase;
+  background:var(--orange); color:var(--black); border:none;
+  border-radius:0 999px 999px 0; cursor:pointer;
+}
+.f-col-title {
+  font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(255,255,255,.25); margin-bottom:18px;
+}
+.f-col a { display:block; font-size:13px; color:rgba(255,255,255,.45); margin-bottom:10px; transition:color .15s; }
+.f-col a:hover { color:var(--white); }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.footer-copy { font-size:11px; color:rgba(255,255,255,.18); }
+.footer-social { display:flex; gap:20px; }
+.footer-social a { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.25); transition:color .15s; }
+.footer-social a:hover { color:var(--white); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .specs-grid { grid-template-columns: repeat(2,1fr); }
+  .spec-item:nth-child(2) { border-right: none; }
+  .spec-item:nth-child(4) { border-right: none; }
+  .footer-inner { grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+  .footer-inner .f-col:last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+  /* Nav */
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+
+  /* Hero */
+  .hero { min-height: 80vh; }
+
+  /* Products */
+  .product-hero-img { height: 55vh; }
+
+  /* OUT! Pillars */
+  .out-pillars { grid-template-columns: 1fr; }
+  .pillar-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,.06); padding: 48px 32px; }
+  .pillar-item:last-child { border-bottom: none; }
+
+  /* Ingredients */
+  .ing-row,
+  .ing-row.flip { grid-template-columns: 1fr; direction: ltr; }
+  .ing-row .ing-img-wrap { order: 0; }
+  .ing-row .ing-text { order: 1; padding: 48px 28px; }
+  .ing-row.flip .ing-img-wrap { order: 0; }
+  .ing-row.flip .ing-text { order: 1; }
+
+  /* Specs */
+  .specs-grid { grid-template-columns: 1fr 1fr; }
+  .specs-header { flex-direction: column; gap: 20px; padding: 48px 28px 32px; }
+  .spec-img-wrap { height: 28vh; min-height: 160px; }
+
+  /* Philosophy / Target Audience */
+  .philosophy { padding: 80px 28px; }
+
+  /* Testimonials */
+  .testimonials { padding: 80px 28px; }
+  .t-card { padding: 36px 28px; }
+
+  /* Footer */
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-inner .f-col:first-child { grid-column: 1 / -1; }
+  .footer-inner .f-col:last-child { grid-column: unset; }
+  footer { padding: 60px 28px 32px; }
+
+  /* Section paddings */
+  .out-section { padding: 80px 28px; }
+  .dark-statement { padding: 80px 28px; }
+  .ingredients-section { padding: 80px 0; }
+}
+
+@media (max-width: 480px) {
+  .specs-grid { grid-template-columns: 1fr; }
+  .spec-item { border-right: none; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-inner .f-col:last-child { grid-column: unset; }
+  .spec-img-wrap { height: 48vw; min-height: 180px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<header id="nav" class="inv">
+  <img class="nav-logo nav-logo-dark" src="assets/Logo_H.png" alt="PLUS ONE">
+  <img class="nav-logo nav-logo-light" src="assets/Logo_H_white.png" alt="PLUS ONE">
+  <nav>
+    <a href="#products">產品</a>
+    <a href="#ingredients">成分</a>
+    <a href="#philosophy">品牌理念</a>
+    <a href="#specs">規格</a>
+  </nav>
+  <a class="nav-cta" href="#products">立即購買</a>
+</header>
+
+<!-- ═══════════ HERO — dark full-bleed ═══════════ -->
+<section style="background:#111; height:100vh; min-height:640px; display:flex; align-items:flex-end; justify-content:center; position:relative; overflow:hidden;">
+
+  <!-- hero image -->
+  <img id="hero-bg-img" src="assets/Hero-image.png" alt="" style="position:absolute;top:-12%;left:0;width:100%;height:124%;object-fit:cover;object-position:center;will-change:transform;">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45) 30%,rgba(0,0,0,.1) 100%);"></div>
+
+  <!-- centered bottom content -->
+  <div style="position:relative;z-index:2;text-align:center;padding:0 40px 80px;width:100%;">
+    <div class="fade d1" style="font-family:'Noto Sans TC',sans-serif;font-size:clamp(36px,4.5vw,52px);font-weight:700;line-height:1.2;color:#fff;letter-spacing:-.01em;">你的運動裝備，少了這一瓶</div>
+    <div class="fade d2" style="font-family:var(--font-zh);font-size:16px;color:rgba(255,255,255,.8);margin-top:20px;line-height:1.7;">
+      運動後的汗水、油脂、氣味、悶熱感——一次清潔，全部帶走。
+    </div>
+    <div class="fade d3" style="margin-top:32px;">
+      <button class="hero-cta" style="background:var(--orange);color:#fff;border-color:var(--orange);" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">探索產品</button>
+    </div>
+  </div>
+
+  <!-- scroll line -->
+  <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0;z-index:3;">
+    <div style="width:1px;height:56px;background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,.25));"></div>
+  </div>
+</section>
+
+<!-- ═══════════ INTRO TEXT ═══════════ -->
+<div class="intro-text">
+  <p class="blur-in">
+    PLUS ONE 是針對長時間戶外運動設計的深層潔淨系列。<br>
+    不只洗淨——而是幫助你的身體重建平衡，準備好再次出發。
+    <span class="en">Formulated for athletes who push further. Built for what comes after.</span>
+  </p>
+</div>
+
+<!-- ═══════════ PRODUCT 1 — SHAMPOO ═══════════ -->
+<section id="products">
+  <div class="product-hero">
+    <div class="product-hero-img fade" style="background:#f5ede8;">
+      <img src="assets/plusone-shampoo.png" alt="運動強健洗髮露" class="parallax-img" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
+      <div class="product-hero-vol" style="background:rgba(0,0,0,.08);color:rgba(0,0,0,.4);">500 mL</div>
+    </div>
+    <div class="product-caption fade">
+      <div class="product-caption-label">Shampoo For Athlete Hair</div>
+      <div class="product-caption-name">運動強健洗髮露</div>
+      <div class="product-caption-desc">
+        解放頭皮，讓運動後的悶熱汗臭 <strong style="color:var(--orange)">OUT!</strong><br>
+        針對油性頭皮、訓練後頭皮悶熱設計。
+      </div>
+      <div class="product-caption-pills">
+        <span class="product-caption-pill">高麗人蔘萃取</span>
+        <span class="product-caption-pill">何首烏萃取</span>
+        <span class="product-caption-pill">薑根萃取</span>
+      </div>
+      <div class="product-caption-scent">香調<span>清新草本木質調</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DARK STATEMENT ═══════════ -->
+<div class="dark-statement">
+  <div class="dark-statement-watermark">RESET</div>
+  <div class="dark-statement-label fade">核心訴求</div>
+  <div class="dark-statement-text blur-in d1">
+    不只洗澡，<br>是回到可以<span class="accent">再出發</span>的狀態。
+  </div>
+  <div class="dark-statement-sub fade d2">
+    PlusOne 不只是洗髮精與沐浴露，而是運動裝備的一部分。
+  </div>
+</div>
+
+<!-- ═══════════ PRODUCT 2 — BODY WASH ═══════════ -->
+<div class="product-hero" style="border-top:1px solid rgba(0,0,0,.07);">
+  <div class="product-hero-img fade" style="background:#1c2518;">
+    <img src="assets/plusone-bodywash.png" alt="運動深層沐浴露" class="parallax-img" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
+    <div class="product-hero-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);">500 mL</div>
+  </div>
+  <div class="product-caption fade" style="background:#fff;">
+    <div class="product-caption-label">Body Wash For Active Body</div>
+    <div class="product-caption-name">運動深層沐浴露</div>
+    <div class="product-caption-desc">
+      深層清潔，毛孔汗脂污垢 <strong style="color:var(--orange)">OUT!</strong><br>
+      適合一般至油性肌膚、訓練後使用。
+    </div>
+    <div class="product-caption-pills">
+      <span class="product-caption-pill">摩洛哥堅果油</span>
+      <span class="product-caption-pill">維他命 B5+E</span>
+      <span class="product-caption-pill">蠟菊萃取</span>
+    </div>
+    <div class="product-caption-scent">香調<span>溫暖琥珀木質調</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ OUT! PILLARS ═══════════ -->
+<div class="out-pillars">
+  <div class="out-pillar fade d1">
+    <div class="out-pillar-num">01</div>
+    <div class="out-pillar-word" style="opacity:0;transform:translateY(18px);will-change:transform,opacity;">OUT!</div>
+    <div class="out-pillar-title">毛孔汗脂污垢</div>
+    <div class="out-pillar-desc">深入毛孔，清除汗水與油脂殘留，讓皮膚在訓練後得以真正呼吸。</div>
+  </div>
+  <div class="out-pillar fade d2">
+    <div class="out-pillar-num">02</div>
+    <div class="out-pillar-word" style="opacity:0;transform:translateY(18px);will-change:transform,opacity;">OUT!</div>
+    <div class="out-pillar-title">運動悶熱汗臭</div>
+    <div class="out-pillar-desc">從來源抑制異味，而不是用香味掩蓋——沖洗後清爽，而非留下濃重人工香氛。</div>
+  </div>
+  <div class="out-pillar fade d3">
+    <div class="out-pillar-num">03</div>
+    <div class="out-pillar-word" style="opacity:0;transform:translateY(18px);will-change:transform,opacity;">OUT!</div>
+    <div class="out-pillar-title">黏膩滑溜殘留</div>
+    <div class="out-pillar-desc">沖水即淨，不留下不必要的滑感。清潔感是真的，乾淨感是真的。</div>
+  </div>
+</div>
+
+<!-- ═══════════ INGREDIENTS ═══════════ -->
+<section id="ingredients" class="ingredients-section">
+
+  <!-- Shampoo row -->
+  <div class="ing-row">
+    <div class="ing-image-col fade" style="background:#f5ede8;">
+      <img src="assets/product_shampoo.png" alt="運動強健洗髮露" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <div class="ing-vol" style="background:rgba(0,0,0,.07);color:rgba(0,0,0,.35);">500 mL</div>
+    </div>
+    <div class="ing-text-col fade d1">
+      <div class="ing-label">精選成分 · Active Ingredients</div>
+      <div class="ing-product-name">運動強健洗髮露</div>
+      <div class="ing-product-en">Athletic Shampoo · Shampoo</div>
+      <div class="ing-product-desc">每一種成分都針對訓練後的頭皮狀態，而非一般日常清潔。</div>
+      <div class="ing-divider"></div>
+      <div class="ing-items">
+        <div class="ing-item">
+          <div class="ing-dot" style="background:#FF643C;"></div>
+          <div>
+            <div class="ing-zh">高麗人蔘萃取</div>
+            <div class="ing-en">Korean Ginseng Extract</div>
+            <div class="ing-desc">強韌髮根，提升頭皮對訓練壓力的耐受力。</div>
+          </div>
+        </div>
+        <div class="ing-item">
+          <div class="ing-dot" style="background:#667414;"></div>
+          <div>
+            <div class="ing-zh">何首烏萃取</div>
+            <div class="ing-en">Polygonum Multiflorum</div>
+            <div class="ing-desc">滋養頭皮，舒緩訓練後頭皮的乾燥與緊繃。</div>
+          </div>
+        </div>
+        <div class="ing-item">
+          <div class="ing-dot" style="background:#FCEE46;"></div>
+          <div>
+            <div class="ing-zh">薑根萃取</div>
+            <div class="ing-en">Ginger Root Extract</div>
+            <div class="ing-desc">促進頭皮循環，加速清潔後的恢復狀態。</div>
+          </div>
+        </div>
+      </div>
+      <div class="ing-scent">香調<span>清新草本木質調</span></div>
+    </div>
+  </div>
+
+  <!-- Body wash row -->
+  <div class="ing-row flip" style="border-top:1px solid rgba(0,0,0,.07);">
+    <div class="ing-image-col fade" style="background:#1c2518;">
+      <img src="assets/product_bodywash.png" alt="運動深層沐浴露" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <div class="ing-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);">500 mL</div>
+    </div>
+    <div class="ing-text-col fade d1">
+      <div class="ing-label">精選成分 · Active Ingredients</div>
+      <div class="ing-product-name">運動深層沐浴露</div>
+      <div class="ing-product-en">Active Body Wash · Body Wash</div>
+      <div class="ing-product-desc">針對訓練後肌膚的深層修護，每次清潔都是一次重建。</div>
+      <div class="ing-divider"></div>
+      <div class="ing-items">
+        <div class="ing-item">
+          <div class="ing-dot" style="background:#FF643C;"></div>
+          <div>
+            <div class="ing-zh">摩洛哥堅果油</div>
+            <div class="ing-en">Argan Oil</div>
+            <div class="ing-desc">深層滋潤，補充訓練後肌膚流失的水分與油脂。</div>
+          </div>
+        </div>
+        <div class="ing-item">
+          <div class="ing-dot" style="background:#667414;"></div>
+          <div>
+            <div class="ing-zh">維他命 B5 + E</div>
+            <div class="ing-en">Panthenol + Tocopherol</div>
+            <div class="ing-desc">修護肌膚屏障，強化皮膚在反覆訓練後的自我保護力。</div>
+          </div>
+        </div>
+        <div class="ing-item">
+          <div class="ing-dot" style="background:#963232;"></div>
+          <div>
+            <div class="ing-zh">蠟菊萃取</div>
+            <div class="ing-en">Helichrysum Extract</div>
+            <div class="ing-desc">舒緩鎮定，有效緩解訓練後肌膚的紅熱與不適。</div>
+          </div>
+        </div>
+      </div>
+      <div class="ing-scent">香調<span>溫暖琥珀木質調</span></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<section id="philosophy">
+  <div class="phi-label fade">Target Audience</div>
+  <div class="phi-statement blur-in d1">每一場硬仗，<br>都值得一次徹底的清洗</div>
+  <div class="phi-body fade d2">
+    PlusOne 不只是洗髮精與沐浴露，而是運動裝備的一部分。它和跑鞋、水壺、補給一樣，屬於訓練結束後的必要配備。
+    我們強調的不是「洗澡變享受」，而是「洗掉殘留，重建平衡，保持最佳狀態」。
+  </div>
+  <div class="phi-tags fade d3">
+    <span class="phi-tag">Recovery</span>
+    <span class="phi-tag">Performance</span>
+    <span class="phi-tag">Outdoor</span>
+    <span class="phi-tag">No Residue</span>
+    <span class="phi-tag">Reset</span>
+  </div>
+  <div class="phi-uses fade d2">
+    <div class="phi-use-row"><div class="phi-use-num">01</div><div class="phi-use-text">跑步・路跑・馬拉松</div></div>
+    <div class="phi-use-row"><div class="phi-use-num">02</div><div class="phi-use-text">鐵人三項・游泳・自行車</div></div>
+    <div class="phi-use-row"><div class="phi-use-num">03</div><div class="phi-use-text">越野跑・登山・戶外訓練</div></div>
+    <div class="phi-use-row"><div class="phi-use-num">04</div><div class="phi-use-text">健身・重訓・高強度訓練</div></div>
+    <div class="phi-use-row"><div class="phi-use-num">05</div><div class="phi-use-text">任何訓練後需要 Reset 的時刻</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ SPECS ═══════════ -->
+<section id="specs">
+  <div class="specs-header">
+    <div>
+      <div class="specs-label fade">Packaging · 包裝設計</div>
+      <div class="specs-title blur-in d1">為運動者<br>設計的細節</div>
+    </div>
+    <div class="specs-sub fade d2">每個設計決策，<br>都為了訓練後的那一刻。</div>
+  </div>
+  <div class="specs-grid">
+    <div class="spec-item fade d1">
+      <div class="spec-img-wrap">
+        <img class="spec-img" src="assets/Packaging-1.jpg" alt="按壓式瓶頭">
+      </div>
+      <div class="spec-body">
+        <div class="spec-num">01</div>
+        <div class="spec-title">按壓式瓶頭</div>
+        <div class="spec-desc">單手即可操作，訓練後雙手沾水也能輕鬆取用。</div>
+      </div>
+    </div>
+    <div class="spec-item fade d2">
+      <div class="spec-img-wrap">
+        <img class="spec-img" src="assets/Packaging-2.png" alt="防滑瓶身">
+      </div>
+      <div class="spec-body">
+        <div class="spec-num">02</div>
+        <div class="spec-title">防滑瓶身</div>
+        <div class="spec-desc">特殊防滑紋路設計，濕手也能穩握，不滑落。</div>
+      </div>
+    </div>
+    <div class="spec-item fade d3">
+      <div class="spec-img-wrap">
+        <img class="spec-img" src="assets/Packaging-3.jpg" alt="500 mL 大容量">
+      </div>
+      <div class="spec-body">
+        <div class="spec-num">03</div>
+        <div class="spec-title">500 mL 大容量</div>
+        <div class="spec-desc">針對高頻使用者設計，每天訓練也不怕快速用完。</div>
+      </div>
+    </div>
+    <div class="spec-item fade d4">
+      <div class="spec-img-wrap">
+        <img class="spec-img" src="assets/Packaging-4.jpg" alt="台灣製造">
+      </div>
+      <div class="spec-body">
+        <div class="spec-num">04</div>
+        <div class="spec-title">台灣製造</div>
+        <div class="spec-desc">100% 台灣生產，嚴格品質管控，機能導向配方。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIAL ═══════════ -->
+<section id="testimonial">
+  <div class="t-section-label fade">Athlete Reviews</div>
+  <div class="t-carousel fade d1">
+    <div class="t-track" id="t-track">
+      <div class="t-slide">
+        <div class="t-quote">每次訓練結束後，這是我第一個拿的東西。<br>洗得掉訓練味、頭皮會呼吸，沖水後乾淨不殘留。<br>更像一件運動清潔工具，不是一般的沐浴產品。</div>
+        <div class="t-sep"></div>
+        <img class="t-avatar" src="assets/Chih-Wei Chen.jpg" alt="陳志偉">
+        <div class="t-name">陳志偉 / Chih-Wei Chen</div>
+        <div class="t-role">Ultra Trail Runner · UTMB Finisher</div>
+      </div>
+      <div class="t-slide">
+        <div class="t-quote">比賽後全身又黏又臭，以前只能用普通沐浴乳勉強撐過。<br>現在換了 PlusOne，真的感覺毛孔被清乾淨，<br>肌膚沒有以前訓練後的那種緊繃不適感。</div>
+        <div class="t-sep"></div>
+        <img class="t-avatar" src="assets/Chia-Jung Lin.jpg" alt="林佳蓉">
+        <div class="t-name">林佳蓉 / Chia-Jung Lin</div>
+        <div class="t-role">Triathlete · IRONMAN 70.3 Finisher</div>
+      </div>
+      <div class="t-slide">
+        <div class="t-quote">重訓後頭皮特別悶，以前洗完還是會癢。<br>用了這款之後頭皮呼吸順多了，也不會乾燥脫屑。<br>配方乾淨，用起來很安心。</div>
+        <div class="t-sep"></div>
+        <img class="t-avatar" src="assets/Chien-Lin Wu.jpg" alt="吳建霖">
+        <div class="t-name">吳建霖 / Chien-Lin Wu</div>
+        <div class="t-role">Powerlifter · 健身教練</div>
+      </div>
+    </div>
+  </div>
+  <div class="t-controls">
+    <button class="t-arrow" id="t-prev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+    <button class="t-dot active" data-i="0"></button>
+    <button class="t-dot" data-i="1"></button>
+    <button class="t-dot" data-i="2"></button>
+    <button class="t-arrow" id="t-next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="assets/Logo_H_white.png" alt="PLUS ONE" style="height:52px;object-fit:contain;object-position:left;">
+      <div class="footer-brand-desc">高效清潔。重建平衡。<br>Built for what comes after.</div>
+    </div>
+    <div class="f-col">
+      <div class="f-col-title">Products</div>
+      <a href="#products">運動強健洗髮露</a>
+      <a href="#products">運動深層沐浴露</a>
+    </div>
+    <div class="f-col">
+      <div class="f-col-title">Brand</div>
+      <a href="#philosophy">品牌理念</a>
+      <a href="#ingredients">成分說明</a>
+      <a href="#philosophy">適用族群</a>
+    </div>
+    <div class="f-col">
+      <div class="f-col-title">Packaging</div>
+      <a href="#specs">包裝設計</a>
+      <a href="#testimonial">使用者評價</a>
+      <a href="#out-section">品牌核心</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 PLUS ONE. All rights reserved. 台灣製造。</div>
+    <div class="footer-social"><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">Strava</a></div>
+  </div>
+</footer>
+
+<script>
+/* ── Nav state ── */
+const nav = document.getElementById('nav');
+
+/* ── Fade-in observer ── */
+const fadeEls = document.querySelectorAll('.fade, .fade-slow');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+fadeEls.forEach(el => obs.observe(el));
+
+/* ── Blur-in observer ── */
+const blurEls = document.querySelectorAll('.blur-in');
+const blurObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); blurObs.unobserve(e.target); } });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+blurEls.forEach(el => blurObs.observe(el));
+
+/* ── Parallax + scroll-scrub (rAF-throttled) ── */
+const heroBgImg    = document.getElementById('hero-bg-img');
+const parallaxImgs = document.querySelectorAll('.parallax-img');
+const darkSection  = document.querySelector('.dark-statement-text');
+const outPillars   = document.querySelectorAll('.out-pillar-word');
+
+let ticking = false;
+
+function updateScroll() {
+  const y = window.scrollY;
+  const isMobile = window.innerWidth <= 768;
+  nav.classList.toggle('bg',  y > 40);
+  nav.classList.toggle('inv', y < 40);
+
+  /* Hero parallax */
+  if (heroBgImg) {
+    heroBgImg.style.transform = isMobile ? '' : `translateY(${y * 0.32}px)`;
+  }
+
+  /* Product image parallax */
+  parallaxImgs.forEach(img => {
+    if (isMobile) { img.style.transform = ''; return; }
+    const wrap = img.closest('.product-hero-img');
+    if (!wrap) return;
+    const rect = wrap.getBoundingClientRect();
+    const mid  = rect.top + rect.height / 2 - window.innerHeight / 2;
+    img.style.transform = `translateY(${mid * 0.08}px)`;
+  });
+
+  /* Scroll-scrub: dark statement text scale */
+  if (darkSection) {
+    const r = darkSection.getBoundingClientRect();
+    const p = Math.max(0, Math.min(1, 1 - r.bottom / (window.innerHeight + r.height)));
+    darkSection.style.transform = `scale(${0.94 + p * 0.06})`;
+  }
+
+  /* Scroll-scrub: OUT! pillar words slight float */
+  outPillars.forEach((w, i) => {
+    const r = w.getBoundingClientRect();
+    const p = Math.max(0, Math.min(1, 1 - r.bottom / (window.innerHeight * 1.1)));
+    w.style.transform = `translateY(${(1 - p) * 18}px)`;
+    w.style.opacity   = Math.min(1, p * 3);
+  });
+
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  if (!ticking) { requestAnimationFrame(updateScroll); ticking = true; }
+}, { passive: true });
+
+updateScroll();
+
+/* ── Testimonial carousel ── */
+(function() {
+  const track = document.getElementById('t-track');
+  const dots  = document.querySelectorAll('.t-dot');
+  let cur = 0, timer;
+  function go(i) {
+    cur = (i + 3) % 3;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, j) => d.classList.toggle('active', j === cur));
+  }
+  document.getElementById('t-prev').onclick = () => { clearInterval(timer); go(cur - 1); reset(); };
+  document.getElementById('t-next').onclick = () => { clearInterval(timer); go(cur + 1); reset(); };
+  dots.forEach(d => d.addEventListener('click', () => { clearInterval(timer); go(+d.dataset.i); reset(); }));
+  function reset() { timer = setInterval(() => go(cur + 1), 5500); }
+  reset();
+})();
+</script>
+
+</body>
+</html>
