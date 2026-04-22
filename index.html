@@ -557,27 +557,29 @@ footer {
 
 @media (max-width: 768px) {
   /* Nav */
-  .nav-links { display: none; }
+  #nav nav { display: none; }
   .nav-cta { display: none; }
+  .nav-logo { height: 40px; }
+  #nav { padding: 0 24px; }
 
   /* Hero */
   .hero { min-height: 80vh; }
 
-  /* Products */
-  .product-hero-img { height: 55vh; }
+  /* Products — use contain so bottle is fully visible on mobile */
+  .product-hero-img { height: 60vh; min-height: 340px; }
+  .parallax-img { object-fit: contain !important; top: 0 !important; height: 100% !important; }
 
   /* OUT! Pillars */
   .out-pillars { grid-template-columns: 1fr; }
-  .pillar-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,.06); padding: 48px 32px; }
-  .pillar-item:last-child { border-bottom: none; }
+  .out-pillar { border-right: none; border-bottom: 1px solid rgba(0,0,0,.08); padding: 48px 28px; }
+  .out-pillar:last-child { border-bottom: none; }
 
   /* Ingredients */
   .ing-row,
   .ing-row.flip { grid-template-columns: 1fr; direction: ltr; }
-  .ing-row .ing-img-wrap { order: 0; }
-  .ing-row .ing-text { order: 1; padding: 48px 28px; }
-  .ing-row.flip .ing-img-wrap { order: 0; }
-  .ing-row.flip .ing-text { order: 1; }
+  .ing-image-col { min-height: 52vw; }
+  .ing-text-col { padding: 48px 28px; border-left: none; border-right: none !important;
+    border-top: 1px solid rgba(0,0,0,.07); }
 
   /* Specs */
   .specs-grid { grid-template-columns: 1fr 1fr; }
@@ -585,22 +587,22 @@ footer {
   .spec-img-wrap { height: 28vh; min-height: 160px; }
 
   /* Philosophy / Target Audience */
-  .philosophy { padding: 80px 28px; }
+  #philosophy { padding: 80px 28px; }
 
   /* Testimonials */
-  .testimonials { padding: 80px 28px; }
-  .t-card { padding: 36px 28px; }
+  #testimonial { padding: 80px 28px; }
+
+  /* Dark statement */
+  .dark-statement { padding: 80px 28px; }
+
+  /* Ingredients section */
+  .ingredients-section { padding: 80px 0; }
 
   /* Footer */
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .footer-inner .f-col:first-child { grid-column: 1 / -1; }
+  .footer-inner > div:first-child { grid-column: 1 / -1; }
   .footer-inner .f-col:last-child { grid-column: unset; }
   footer { padding: 60px 28px 32px; }
-
-  /* Section paddings */
-  .out-section { padding: 80px 28px; }
-  .dark-statement { padding: 80px 28px; }
-  .ingredients-section { padding: 80px 0; }
 }
 
 @media (max-width: 480px) {
@@ -1048,17 +1050,19 @@ updateScroll();
 /* ── Testimonial carousel ── */
 (function() {
   const track = document.getElementById('t-track');
+  const carousel = track.parentElement;
   const dots  = document.querySelectorAll('.t-dot');
   let cur = 0, timer;
   function go(i) {
     cur = (i + 3) % 3;
-    track.style.transform = `translateX(-${cur * 100}%)`;
+    track.style.transform = `translateX(-${cur * carousel.offsetWidth}px)`;
     dots.forEach((d, j) => d.classList.toggle('active', j === cur));
   }
   document.getElementById('t-prev').onclick = () => { clearInterval(timer); go(cur - 1); reset(); };
   document.getElementById('t-next').onclick = () => { clearInterval(timer); go(cur + 1); reset(); };
   dots.forEach(d => d.addEventListener('click', () => { clearInterval(timer); go(+d.dataset.i); reset(); }));
   function reset() { timer = setInterval(() => go(cur + 1), 5500); }
+  window.addEventListener('resize', () => go(cur));
   reset();
 })();
 </script>
