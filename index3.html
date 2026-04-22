@@ -556,34 +556,43 @@ footer {
 }
 
 @media (max-width: 768px) {
-  /* Nav */
-  #nav nav { display: none; }
-  .nav-cta { display: none; }
-  .nav-logo { height: 40px; }
-  #nav { padding: 0 24px; }
+  /* Nav — shrink logo + links, keep CTA compact */
+  .nav-logo { height: 36px; }
+  #nav { padding: 0 20px; }
+  #nav nav { gap: 14px; }
+  #nav nav a { font-size: 10px; letter-spacing: .04em; }
+  .nav-cta { font-size: 10px; padding: 6px 14px; }
 
   /* Hero */
   .hero { min-height: 80vh; }
 
-  /* Products — use contain so bottle is fully visible on mobile */
-  .product-hero-img { height: 60vh; min-height: 340px; }
-  .parallax-img { object-fit: contain !important; top: 0 !important; height: 100% !important; }
+  /* Products — taller so full bottle visible, keep cover */
+  .product-hero-img { height: 90vh; min-height: 500px; }
 
-  /* OUT! Pillars */
-  .out-pillars { grid-template-columns: 1fr; }
-  .out-pillar { border-right: none; border-bottom: 1px solid rgba(0,0,0,.08); padding: 48px 28px; }
-  .out-pillar:last-child { border-bottom: none; }
+  /* OUT! Pillars — 3-col, compact, no border-bottom, no gap before next section */
+  .out-pillars { border-bottom: none; }
+  .out-pillar { padding: 24px 10px; }
+  .out-pillar-desc { display: none; }
+  .out-pillar-word { font-size: clamp(26px, 6.5vw, 44px); margin-bottom: 8px; }
+  .out-pillar-title { font-size: 12px; margin-bottom: 0; }
+  .out-pillar-num { margin-bottom: 6px; }
 
-  /* Ingredients */
+  /* Ingredients — no top gap right after OUT! pillars */
+  .ingredients-section { padding: 0; }
   .ing-row,
   .ing-row.flip { grid-template-columns: 1fr; direction: ltr; }
   .ing-image-col { min-height: 52vw; }
   .ing-text-col { padding: 48px 28px; border-left: none; border-right: none !important;
     border-top: 1px solid rgba(0,0,0,.07); }
 
-  /* Specs */
+  /* Specs — reduce top space */
+  #specs { padding-top: 64px; }
   .specs-grid { grid-template-columns: 1fr 1fr; }
-  .specs-header { flex-direction: column; gap: 20px; padding: 48px 28px 32px; }
+  .specs-header {
+    flex-direction: column; align-items: flex-start; gap: 12px;
+    padding: 0 28px 24px; margin-bottom: 0;
+  }
+  .specs-sub { text-align: left; max-width: 100%; }
   .spec-img-wrap { height: 28vh; min-height: 160px; }
 
   /* Philosophy / Target Audience */
@@ -594,9 +603,6 @@ footer {
 
   /* Dark statement */
   .dark-statement { padding: 80px 28px; }
-
-  /* Ingredients section */
-  .ingredients-section { padding: 80px 0; }
 
   /* Footer */
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
