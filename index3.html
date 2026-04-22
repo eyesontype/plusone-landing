@@ -566,8 +566,9 @@ footer {
   /* Hero */
   .hero { min-height: 80vh; }
 
-  /* Products — taller so full bottle visible, keep cover */
-  .product-hero-img { height: 90vh; min-height: 500px; }
+  /* Products — contain shows full image proportionally, no cropping */
+  .product-hero-img { height: 80vh; min-height: 440px; }
+  .product-hero-img .parallax-img { object-fit: contain !important; top: 0 !important; height: 100% !important; }
 
   /* OUT! Pillars — 3-col, compact, no border-bottom, no gap before next section */
   .out-pillars { border-bottom: none; }
@@ -581,7 +582,7 @@ footer {
   .ingredients-section { padding: 0; }
   .ing-row,
   .ing-row.flip { grid-template-columns: 1fr; direction: ltr; }
-  .ing-image-col { min-height: 52vw; }
+  .ing-image-col { min-height: 90vw; }
   .ing-text-col { padding: 48px 28px; border-left: none; border-right: none !important;
     border-top: 1px solid rgba(0,0,0,.07); }
 
