@@ -472,8 +472,8 @@ img { display: block; max-width: 100%; }
   color:var(--muted); margin-bottom:72px;
 }
 .t-carousel { position:relative; overflow:hidden; max-width:680px; margin:0 auto; }
-.t-track { display:flex; transition:transform .6s cubic-bezier(.4,0,.2,1); }
-.t-slide { min-width:100%; flex-shrink:0; }
+.t-track { display:flex; width:300%; transition:transform .6s cubic-bezier(.4,0,.2,1); }
+.t-slide { width:33.3333%; flex-shrink:0; min-width:0; }
 .t-avatar {
   width:96px; height:96px; border-radius:50%;
   object-fit:cover; margin:0 auto 16px;
@@ -1061,19 +1061,17 @@ updateScroll();
 /* ── Testimonial carousel ── */
 (function() {
   const track = document.getElementById('t-track');
-  const carousel = track.parentElement;
   const dots  = document.querySelectorAll('.t-dot');
   let cur = 0, timer;
   function go(i) {
     cur = (i + 3) % 3;
-    track.style.transform = `translateX(-${cur * carousel.offsetWidth}px)`;
+    track.style.transform = `translateX(-${cur * (100 / 3)}%)`;
     dots.forEach((d, j) => d.classList.toggle('active', j === cur));
   }
   document.getElementById('t-prev').onclick = () => { clearInterval(timer); go(cur - 1); reset(); };
   document.getElementById('t-next').onclick = () => { clearInterval(timer); go(cur + 1); reset(); };
   dots.forEach(d => d.addEventListener('click', () => { clearInterval(timer); go(+d.dataset.i); reset(); }));
   function reset() { timer = setInterval(() => go(cur + 1), 5500); }
-  window.addEventListener('resize', () => go(cur));
   reset();
 })();
 </script>
