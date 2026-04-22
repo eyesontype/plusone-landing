@@ -259,7 +259,9 @@ img { display: block; max-width: 100%; }
 .out-pillar-word {
   font-family:var(--font-b); font-size:clamp(48px,5vw,72px); font-weight:900;
   color:var(--orange); line-height:1; letter-spacing:-.02em; margin-bottom:20px;
+  transition: font-style .2s ease;
 }
+.out-pillar:hover .out-pillar-word { font-style: italic; }
 .out-pillar-title {
   font-family:var(--font-zh); font-size:18px; font-weight:900;
   color:var(--black); margin-bottom:12px; line-height:1.2;
