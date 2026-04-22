@@ -566,9 +566,13 @@ footer {
   /* Hero */
   .hero { min-height: 80vh; }
 
-  /* Products — contain shows full image proportionally, no cropping */
-  .product-hero-img { height: 80vh; min-height: 440px; }
-  .product-hero-img .parallax-img { object-fit: contain !important; top: 0 !important; height: 100% !important; }
+  /* Products — natural aspect ratio, container follows image height */
+  .product-hero-img { height: auto; min-height: unset; }
+  .product-hero-img .parallax-img {
+    position: relative !important; top: auto !important; left: auto !important;
+    width: 100% !important; height: auto !important; object-fit: initial !important;
+    display: block;
+  }
 
   /* OUT! Pillars — 3-col, compact, no border-bottom, no gap before next section */
   .out-pillars { border-bottom: none; }
