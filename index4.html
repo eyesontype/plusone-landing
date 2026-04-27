@@ -862,9 +862,14 @@ body.dark .shop-cta {
 body.dark .shop-cta-watermark { color: rgba(255,100,60,.06); }
 
 /* Intro text */
-body.dark .intro-text { border-top-color: var(--border); background: #667414; }
+body.dark .intro-text {
+  border-top-color: var(--border);
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 100%, rgba(160,180,30,.22) 0%, transparent 65%),
+    linear-gradient(to bottom, #3e4b0d 0%, #667414 45%, #4e5e11 100%);
+}
 body.dark .intro-text p { color: var(--cream); }
-body.dark .intro-text .en { color: var(--cream3); }
+body.dark .intro-text .en { color: rgba(240,224,200,.72); }
 
 /* Problem section */
 body.dark .problem-section { border-top-color: var(--border); }
