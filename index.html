@@ -34,6 +34,13 @@ img { display: block; max-width: 100%; }
   --font-d: "Alegreya Sans SC", Georgia, serif;
   --font-b: "Mona Sans", sans-serif;
   --font-zh:"Noto Sans TC", sans-serif;
+  /* theme tokens — LIGHT defaults */
+  --bg:      #f7f5f2;
+  --bg-alt:  #ede9e3;
+  --cream:   #1a1208;
+  --cream2:  rgba(26,18,8,.6);
+  --cream3:  rgba(26,18,8,.35);
+  --border:  rgba(0,0,0,.09);
 }
 
 /* ── Reveal ── */
@@ -199,39 +206,48 @@ img { display: block; max-width: 100%; }
 }
 .product-caption-scent span { font-weight:400; letter-spacing:0; text-transform:none; font-family:var(--font-zh); color:#555; font-size:13px; margin-left:6px; }
 
+/* product caption as image overlay */
+.product-caption-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 56px 72px;
+  text-align: left;
+  background: transparent !important;
+  border-bottom: none; z-index: 2;
+}
+.product-caption-overlay .product-caption-label { color: rgba(255,255,255,.45); }
+.product-caption-overlay .product-caption-name { color: #fff; max-width: 600px; }
+.product-caption-overlay .product-caption-desc { color: rgba(255,255,255,.65); max-width: 520px; margin: 0; }
+
 /* ══════════════════════════════════════════════
    FULL-BLEED DARK STATEMENT
 ══════════════════════════════════════════════ */
 .dark-statement {
-  background: var(--black);
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 100%, rgba(255,100,60,.28) 0%, transparent 68%),
+    linear-gradient(to bottom, #9dd2e0 0%, #e8f0f4 40%, #f5f0ec 100%);
   padding: 160px 40px;
   text-align: center;
   position:relative; overflow:hidden;
 }
-.dark-statement-watermark {
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  font-family:var(--font-b); font-size:clamp(200px,30vw,420px); font-weight:900;
-  color:rgba(255,255,255,.03); line-height:1;
-  user-select:none; pointer-events:none; letter-spacing:-.03em; white-space:nowrap;
-}
+.dark-statement-watermark { display:none; }
 .dark-statement-label {
   font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
-  color:rgba(255,255,255,.3); margin-bottom:24px;
+  color:rgba(0,0,0,.35); margin-bottom:24px;
   display:flex; align-items:center; justify-content:center; gap:12px;
 }
 .dark-statement-label::before,
-.dark-statement-label::after { content:''; width:28px; height:1px; background:rgba(255,255,255,.2); }
+.dark-statement-label::after { content:''; width:28px; height:1px; background:rgba(0,0,0,.15); }
 .dark-statement-text {
   font-family: var(--font-zh);
   font-size: clamp(28px, 4vw, 56px);
-  font-weight: 900; line-height:1.25; color:var(--white);
+  font-weight: 900; line-height:1.25; color:var(--black);
   max-width: 700px; margin: 0 auto;
   position:relative; z-index:1;
 }
 .dark-statement-text .accent { color:var(--orange); }
 .dark-statement-sub {
   font-family: var(--font-zh);
-  font-size:15px; line-height:1.8; color:rgba(255,255,255,.45);
+  font-size:15px; line-height:1.8; color:rgba(0,0,0,.45);
   max-width:440px; margin:28px auto 0;
   position:relative; z-index:1;
 }
@@ -245,30 +261,28 @@ img { display: block; max-width: 100%; }
   border-bottom:1px solid rgba(0,0,0,.08);
 }
 .out-pillar {
-  padding:80px 56px;
+  padding:56px 56px;
   border-right:1px solid rgba(0,0,0,.08);
   text-align:center;
   transition:background .2s;
 }
 .out-pillar:last-child { border-right:none; }
 .out-pillar:hover { background:var(--off); }
-.out-pillar-num {
-  font-family:var(--font-b); font-size:11px; font-weight:700;
-  letter-spacing:.1em; color:rgba(0,0,0,.18); margin-bottom:16px;
-}
 .out-pillar-word {
-  font-family:var(--font-b); font-size:clamp(48px,5vw,72px); font-weight:900;
-  color:var(--orange); line-height:1; letter-spacing:-.02em; margin-bottom:20px;
-  transition: font-style .2s ease;
+  font-family:var(--font-b); font-size:28px; font-weight:900;
+  color:var(--orange); line-height:1.3; letter-spacing:-.02em; margin-bottom:0;
+  display:block;
+  transform: translateY(var(--ty, 18px)) scale(var(--sc, 1));
+  transition: transform .25s cubic-bezier(.16,1,.3,1);
 }
-.out-pillar:hover .out-pillar-word { font-style: italic; }
+.out-pillar:hover .out-pillar-word { --sc: 1.12; }
 .out-pillar-title {
-  font-family:var(--font-zh); font-size:18px; font-weight:900;
-  color:var(--black); margin-bottom:12px; line-height:1.2;
+  font-family:var(--font-zh); font-weight:900;
+  color:var(--black); line-height:inherit; display:inline;
 }
 .out-pillar-desc {
   font-family:var(--font-zh); font-size:14px; line-height:1.85;
-  color:rgba(0,0,0,.5);
+  color:rgba(0,0,0,.5); margin-top:16px;
 }
 
 /* ══════════════════════════════════════════════
@@ -353,7 +367,9 @@ img { display: block; max-width: 100%; }
 #philosophy {
   padding:160px 40px;
   text-align:center;
-  background:var(--white);
+  background:
+    radial-gradient(ellipse 85% 50% at 50% 100%, rgba(102,116,20,.22) 0%, transparent 66%),
+    linear-gradient(to bottom, #d4c478 0%, #ede8d8 38%, #f5f2ec 100%);
   border-bottom:1px solid rgba(0,0,0,.07);
 }
 .phi-label {
@@ -396,6 +412,167 @@ img { display: block; max-width: 100%; }
 }
 
 /* ══════════════════════════════════════════════
+   THE PROBLEM
+══════════════════════════════════════════════ */
+.problem-section {
+  background: var(--bg-alt);
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+.problem-header {
+  padding: 80px 48px 64px;
+  text-align: center;
+}
+.problem-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.problem-label::before,
+.problem-label::after {
+  content: ''; display: block; width: 32px; height: 1px;
+  background: rgba(0,0,0,.15);
+}
+.problem-heading {
+  font-family: var(--font-zh); font-size: clamp(22px, 3vw, 38px); font-weight: 900;
+  color: var(--black); line-height: 1.2;
+}
+.problem-panels {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.problem-panel {
+  position: relative; overflow: hidden; cursor: default;
+  aspect-ratio: 1 / 1;
+}
+.problem-panel-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center center;
+  transition: transform .7s cubic-bezier(.16,1,.3,1);
+}
+.problem-panel:hover .problem-panel-bg { transform: scale(1.05); }
+.problem-panel-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.18) 100%);
+}
+.problem-panel-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 44px 40px; z-index: 1;
+}
+.problem-panel-num {
+  font-family: var(--font-b); font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; color: var(--orange); margin-bottom: 12px;
+}
+.problem-panel-title {
+  font-family: var(--font-zh); font-size: 22px; font-weight: 900;
+  color: #fff; margin-bottom: 12px; line-height: 1.3;
+}
+.problem-panel-desc {
+  font-family: var(--font-zh); font-size: 13px; line-height: 1.9;
+  color: rgba(255,255,255,.6);
+}
+
+/* ── Theme toggle ── */
+.theme-toggle {
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+.theme-track {
+  width: 38px; height: 21px; border-radius: 999px;
+  background: rgba(0,0,0,.12); border: 1px solid rgba(0,0,0,.18);
+  position: relative; transition: background .3s, border-color .3s;
+  display: flex; align-items: center;
+}
+.theme-thumb {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--black); position: absolute; left: 2px;
+  transition: transform .3s, background .3s;
+}
+body.dark .theme-track { background: rgba(240,224,200,.15); border-color: rgba(240,224,200,.3); }
+body.dark .theme-thumb { background: #f0e0c8; transform: translateX(17px); }
+#nav.inv .theme-track { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.3); }
+#nav.inv .theme-thumb { background: #fff; }
+body.dark #nav.inv .theme-thumb { background: #f0e0c8; }
+
+/* ── Shop Now CTA ───────────────────────────── */
+.shop-cta {
+  position: relative;
+  padding: 160px 40px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,100,60,.12) 0%, transparent 65%),
+    linear-gradient(to bottom, #f5f0eb 0%, #f7f5f2 100%);
+  overflow: hidden;
+}
+.shop-cta-watermark {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-b); font-size: clamp(80px, 18vw, 220px);
+  font-weight: 900; letter-spacing: -.04em;
+  color: rgba(255,100,60,.06); pointer-events: none; white-space: nowrap;
+}
+.shop-cta-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--cream3); margin-bottom: 32px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.shop-cta-label::before,
+.shop-cta-label::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--border);
+}
+.shop-cta-title {
+  font-family: var(--font-zh); font-size: clamp(26px, 4.5vw, 58px);
+  font-weight: 900; line-height: 1.25; color: var(--cream);
+  max-width: 720px; margin: 0 auto 56px;
+}
+.shop-cta-accent { color: var(--orange); }
+.shop-cta-actions {
+  display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap;
+}
+.shop-cta-btn {
+  font-family: var(--font-b); font-size: 12px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: 16px 44px;
+  background: var(--orange); color: #fff; border-radius: 999px;
+  transition: opacity .15s, transform .15s;
+}
+.shop-cta-btn:hover { opacity: .88; transform: translateY(-2px); }
+.shop-cta-btn-sec {
+  font-family: var(--font-b); font-size: 12px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: 15px 44px;
+  color: var(--cream); border: 1px solid var(--border); border-radius: 999px;
+  transition: background .15s, border-color .15s;
+}
+.shop-cta-btn-sec:hover { background: rgba(240,224,200,.08); border-color: var(--cream3); }
+
+/* ── Target Audience — image + text cards ───── */
+.phi-use-cards {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 72px;
+  border: 1px solid rgba(0,0,0,.12);
+}
+.phi-use-card {
+  position: relative;
+  border-right: 1px solid rgba(0,0,0,.12);
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+}
+.phi-use-card:last-child { border-right: none; }
+.phi-use-card-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform .6s cubic-bezier(.16,1,.3,1);
+}
+.phi-use-card:hover .phi-use-card-bg { transform: scale(1.05); }
+.phi-use-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.15) 55%, transparent 100%);
+}
+.phi-use-card-text {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 18px 16px;
+  font-family: var(--font-zh); font-size: 13px; font-weight: 700;
+  color: #fff; line-height: 1.55; z-index: 1;
+}
+
+/* ══════════════════════════════════════════════
    SPECS — editorial full-width 4-col
 ══════════════════════════════════════════════ */
 #specs {
@@ -404,7 +581,7 @@ img { display: block; max-width: 100%; }
   overflow: hidden;
 }
 .specs-header {
-  padding: 0 48px;
+  padding: 0 72px;
   display: flex; justify-content: space-between; align-items: flex-end;
   margin-bottom: 80px;
 }
@@ -415,7 +592,7 @@ img { display: block; max-width: 100%; }
 .specs-title {
   font-family:var(--font-zh);
   font-size:clamp(28px,3.5vw,44px);
-  font-weight:900; line-height:1.1; color:var(--black);
+  font-weight:900; line-height:1.3; color:var(--black);
 }
 .specs-sub {
   font-family:var(--font-zh); font-size:14px; line-height:1.75;
@@ -447,6 +624,33 @@ img { display: block; max-width: 100%; }
 .spec-num { font-family:var(--font-b); font-size:11px; font-weight:700; letter-spacing:.08em; color:rgba(0,0,0,.2); margin-bottom:16px; }
 .spec-title { font-family:var(--font-zh); font-size:18px; font-weight:700; color:var(--black); margin-bottom:10px; line-height:1.2; }
 .spec-desc { font-family:var(--font-zh); font-size:13px; line-height:1.8; color:rgba(0,0,0,.5); }
+
+/* ── Hero carousel dots ── */
+.hero-dot {
+  width:6px; height:6px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(255,255,255,.3); transition:background .25s, transform .25s; padding:0;
+}
+.hero-dot.active { background:#fff; transform:scale(1.4); }
+
+/* ── OUT! section header ── */
+.out-header {
+  padding: 72px 40px 48px;
+  text-align: center;
+  background: var(--bg);
+}
+.out-header-title {
+  font-family: var(--font-b); font-size: clamp(80px, 14vw, 160px);
+  font-weight: 900; letter-spacing: -.03em; line-height: .9;
+  color: var(--orange); margin-bottom: 28px;
+}
+.out-header-sub {
+  font-family: var(--font-zh); font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 700; color: var(--cream); margin-bottom: 18px; line-height: 1.3;
+}
+.out-header-desc {
+  font-family: var(--font-zh); font-size: 15px; line-height: 1.95;
+  color: var(--cream2); max-width: 520px; margin: 0 auto;
+}
 
 /* ── Blur-in text reveal ── */
 .blur-in {
@@ -546,6 +750,137 @@ footer {
 .footer-social a { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.25); transition:color .15s; }
 .footer-social a:hover { color:var(--white); }
 
+/* ─── DARK THEME (body.dark) ─────────────────────────────── */
+body.dark {
+  --bg:      #1a1208;
+  --bg-alt:  #201610;
+  --cream:   #f0e0c8;
+  --cream2:  rgba(240,224,200,.55);
+  --cream3:  rgba(240,224,200,.25);
+  --border:  rgba(240,224,200,.1);
+  background: var(--bg);
+}
+body.dark .hero { background: var(--bg); }
+
+/* Nav on scroll */
+body.dark #nav.bg { background: rgba(26,18,8,.92); border-bottom-color: var(--border); }
+body.dark #nav.bg nav a { color: var(--cream); opacity: .7; }
+body.dark #nav.bg nav a:hover { opacity: 1; }
+body.dark #nav.bg .nav-cta { color: var(--cream); border-color: var(--border); }
+body.dark #nav.bg .nav-logo-dark { display: none; }
+body.dark #nav.bg .nav-logo-light { display: block; }
+
+/* Product caption */
+body.dark .product-caption { background: var(--bg); border-bottom-color: var(--border); }
+body.dark .product-caption-label { color: var(--cream3); }
+body.dark .product-caption-name { color: var(--cream); }
+body.dark .product-caption-desc { color: var(--cream2); }
+
+/* OUT! Pillars */
+body.dark .out-pillars { border-top-color: var(--border); border-bottom-color: var(--border); }
+body.dark .out-pillar { border-right-color: var(--border); }
+body.dark .out-pillar:hover { background: var(--bg-alt); }
+body.dark .out-pillar-title { color: var(--cream); }
+body.dark .out-pillar-desc { color: var(--cream2); }
+
+/* Ingredients */
+body.dark .ing-row { border-bottom-color: var(--border); }
+body.dark .ing-row.flip { border-top-color: var(--border); }
+body.dark .ing-text-col { background: var(--bg); border-left-color: var(--border); }
+body.dark .ing-row.flip .ing-text-col { border-right-color: var(--border); }
+body.dark .ing-label { color: var(--cream3); }
+body.dark .ing-product-name { color: var(--cream); }
+body.dark .ing-product-en { color: var(--cream3); }
+body.dark .ing-product-desc { color: var(--cream2); }
+body.dark .ing-divider { background: var(--border); }
+body.dark .ing-zh { color: var(--cream); }
+body.dark .ing-en { color: var(--cream3); }
+body.dark .ing-desc { color: var(--cream2); }
+body.dark .ing-scent { color: var(--cream3); border-top-color: var(--border); }
+body.dark .ing-scent span { color: var(--cream2); }
+body.dark .ing-item { border-bottom-color: var(--border); }
+body.dark .ing-item:first-child { border-top-color: var(--border); }
+body.dark .ing-vol { color: rgba(240,224,200,.45) !important; }
+
+/* Dark statement */
+body.dark .dark-statement {
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 100%, rgba(255,100,60,.2) 0%, transparent 68%),
+    linear-gradient(to bottom, #0d1e26 0%, #1a1208 50%, #1a1208 100%);
+}
+body.dark .dark-statement-label { color: var(--cream3); }
+body.dark .dark-statement-label::before,
+body.dark .dark-statement-label::after { background: var(--border); }
+body.dark .dark-statement-text { color: var(--cream); }
+body.dark .dark-statement-sub { color: var(--cream2); }
+
+/* Philosophy / Target Audience */
+body.dark #philosophy {
+  background:
+    radial-gradient(ellipse 85% 50% at 50% 100%, rgba(102,116,20,.18) 0%, transparent 66%),
+    linear-gradient(to bottom, #2a1e08 0%, #1a1208 45%, #1a1208 100%);
+  border-bottom-color: var(--border);
+}
+body.dark .phi-label { color: var(--cream3); }
+body.dark .phi-statement { color: var(--cream); }
+body.dark .phi-body { color: var(--cream2); }
+body.dark .phi-tag { border-color: var(--border); color: var(--cream2); }
+body.dark .phi-use-cards { border-color: var(--border); }
+body.dark .phi-use-card { border-right-color: var(--border); }
+
+/* Specs / Packaging */
+body.dark #specs { background: var(--bg-alt); }
+body.dark .specs-label { color: var(--cream3); }
+body.dark .specs-title { color: var(--cream); }
+body.dark .specs-sub { color: var(--cream2); }
+body.dark .specs-grid { border-top-color: var(--border); }
+body.dark .spec-item { border-right: 1px solid var(--border); background: var(--bg-alt); }
+body.dark .spec-body { background: var(--bg-alt); border-top-color: var(--border); }
+body.dark .spec-num { color: var(--cream3); }
+body.dark .spec-title { color: var(--cream); }
+body.dark .spec-desc { color: var(--cream2); }
+
+/* Testimonial */
+body.dark #testimonial { background: var(--bg); border-top-color: var(--border); }
+body.dark .t-section-label { color: var(--cream3); }
+body.dark .t-quote { color: var(--cream); }
+body.dark .t-sep { background: var(--border); }
+body.dark .t-name { color: var(--cream); }
+body.dark .t-role { color: var(--cream3); }
+body.dark .t-dot { background: var(--cream3); }
+body.dark .t-dot.active { background: var(--cream); }
+body.dark .t-avatar { border-color: var(--border); }
+body.dark .t-arrow { border-color: var(--border); color: var(--cream2); }
+body.dark .t-arrow:hover { background: var(--bg-alt); border-color: var(--cream3); color: var(--cream); }
+
+/* Shop CTA (dark) */
+body.dark .shop-cta {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,100,60,.22) 0%, transparent 65%),
+    linear-gradient(to bottom, #1a1208 0%, #0c0d06 100%);
+}
+body.dark .shop-cta-watermark { color: rgba(255,100,60,.06); }
+
+/* Intro text */
+body.dark .intro-text {
+  border-top-color: var(--border);
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 100%, rgba(160,180,30,.22) 0%, transparent 65%),
+    linear-gradient(to bottom, #3e4b0d 0%, #343D09 45%, #4e5e11 100%);
+}
+body.dark .intro-text p { color: var(--cream); }
+body.dark .intro-text .en { color: rgba(240,224,200,.72); }
+
+/* Problem section */
+body.dark .problem-section { border-top-color: var(--border); }
+body.dark .problem-label { color: var(--cream3); }
+body.dark .problem-label::before, body.dark .problem-label::after { background: var(--border); }
+body.dark .problem-heading { color: var(--cream); }
+
+/* Misc */
+body.dark .product-hero { border-top-color: var(--border) !important; }
+body.dark .ingredients-section { border-top-color: var(--border); }
+
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .specs-grid { grid-template-columns: repeat(2,1fr); }
@@ -578,8 +913,8 @@ footer {
   .out-pillars { border-bottom: none; }
   .out-pillar { padding: 24px 10px; }
   .out-pillar-desc { display: none; }
-  .out-pillar-word { font-size: clamp(26px, 6.5vw, 44px); margin-bottom: 8px; }
-  .out-pillar-title { font-size: 12px; margin-bottom: 0; }
+  .out-pillar-word { font-size: clamp(12px, 4.4vw, 20px); margin-bottom: 8px; }
+  .out-pillar-title { font-size: inherit; display: block; }
   .out-pillar-num { margin-bottom: 6px; }
 
   /* Ingredients — no top gap right after OUT! pillars */
@@ -599,6 +934,21 @@ footer {
   }
   .specs-sub { text-align: left; max-width: 100%; }
   .spec-img-wrap { height: 28vh; min-height: 160px; }
+
+  /* Problem section */
+  .problem-header { padding: 64px 28px 48px; }
+  .problem-panels { grid-template-columns: 1fr; }
+  .problem-panel-content { padding: 32px 28px; }
+
+  /* Shop CTA */
+  .shop-cta { padding: 100px 28px; }
+
+  /* product overlay caption */
+  .product-caption-overlay { padding: 40px 28px; }
+
+  /* phi-use-cards — 2-col on tablet */
+  .phi-use-cards { grid-template-columns: repeat(2, 1fr); }
+  .phi-use-card:nth-child(even) { border-right: none; }
 
   /* Philosophy / Target Audience */
   #philosophy { padding: 80px 28px; }
@@ -622,10 +972,13 @@ footer {
   .footer-inner { grid-template-columns: 1fr; }
   .footer-inner .f-col:last-child { grid-column: unset; }
   .spec-img-wrap { height: 48vw; min-height: 180px; }
+  .phi-use-cards { grid-template-columns: 1fr; }
+  .phi-use-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .phi-use-card:last-child { border-bottom: none; }
 }
 </style>
 </head>
-<body id="top">
+<body id="top" class="dark">
 
 <!-- ═══════════ NAV ═══════════ -->
 <header id="nav" class="inv">
@@ -633,28 +986,40 @@ footer {
   <a href="javascript:location.reload()" style="display:contents;"><img class="nav-logo nav-logo-light" src="assets/Logo_H_white.png" alt="PLUS ONE"></a>
   <nav>
     <a href="#products">產品</a>
-    <a href="#ingredients">成分</a>
     <a href="#philosophy">品牌理念</a>
     <a href="#specs">規格</a>
   </nav>
+  <button id="theme-toggle" class="theme-toggle" title="切換主題"><span class="theme-track"><span class="theme-thumb"></span></span></button>
   <a class="nav-cta" href="#products">立即購買</a>
 </header>
 
 <!-- ═══════════ HERO — dark full-bleed ═══════════ -->
 <section style="background:#111; height:100vh; min-height:640px; display:flex; align-items:flex-end; justify-content:center; position:relative; overflow:hidden;">
 
-  <!-- hero image -->
-  <img id="hero-bg-img" src="assets/Hero-image.png" alt="" style="position:absolute;top:-12%;left:0;width:100%;height:124%;object-fit:cover;object-position:center;will-change:transform;">
-  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45) 30%,rgba(0,0,0,.1) 100%);"></div>
+  <!-- hero carousel -->
+  <div id="hero-carousel" style="position:absolute;top:-12%;left:0;width:100%;height:124%;will-change:transform;">
+    <img class="hero-slide" src="assets/Hero-image-01.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition:opacity 1.2s ease;">
+    <img class="hero-slide" src="assets/Hero-image-02.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0;transition:opacity 1.2s ease;">
+    <img class="hero-slide" src="assets/Hero-image-03.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0;transition:opacity 1.2s ease;">
+    <img class="hero-slide" src="assets/Hero-image-04.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0;transition:opacity 1.2s ease;">
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5) 30%,rgba(0,0,0,.1) 100%);"></div>
 
   <!-- centered bottom content -->
-  <div style="position:relative;z-index:2;text-align:center;padding:0 40px 80px;width:100%;">
-    <div class="fade d1" style="font-family:'Noto Sans TC',sans-serif;font-size:clamp(36px,4.5vw,52px);font-weight:700;line-height:1.2;color:#fff;letter-spacing:-.01em;">你的運動裝備，少了這一瓶</div>
+  <div style="position:relative;z-index:2;text-align:center;padding:0 40px 88px;width:100%;">
+    <div class="fade d1" style="font-family:'Noto Sans TC',sans-serif;font-size:clamp(36px,4.5vw,52px);font-weight:700;line-height:1.2;color:#fff;letter-spacing:-.01em;">運動後的第一道清潔</div>
     <div class="fade d2" style="font-family:var(--font-zh);font-size:16px;color:rgba(255,255,255,.8);margin-top:20px;line-height:1.7;">
-      運動後的汗水、油脂、氣味、悶熱感——一次清潔，全部帶走。
+      專為長時間戶外運動設計的深層潔淨系列。<br>徹底擊退汗水、油脂與髒污，讓每一次清洗都是一場重新開始。
     </div>
     <div class="fade d3" style="margin-top:32px;">
       <button class="hero-cta" style="background:var(--orange);color:#fff;border-color:var(--orange);" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">探索產品</button>
+    </div>
+    <!-- carousel dots -->
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:28px;">
+      <button class="hero-dot active" data-i="0"></button>
+      <button class="hero-dot" data-i="1"></button>
+      <button class="hero-dot" data-i="2"></button>
+      <button class="hero-dot" data-i="3"></button>
     </div>
   </div>
 
@@ -664,11 +1029,66 @@ footer {
   </div>
 </section>
 
+<!-- ═══════════ THE PROBLEM ═══════════ -->
+<div class="problem-section">
+  <div class="problem-header">
+    <div class="problem-label fade">The Problem</div>
+    <div class="problem-heading blur-in d1">運動後的三大困擾</div>
+  </div>
+  <div class="problem-panels">
+    <div class="problem-panel fade d1">
+      <div class="problem-panel-bg" style="background-image:url('assets/problem01.png');"></div>
+      <div class="problem-panel-overlay"></div>
+      <div class="problem-panel-content">
+        <div class="problem-panel-title">洗不乾淨的黏膩感</div>
+        <div class="problem-panel-desc">一般沐浴乳無法深入毛孔，運動後的汗脂殘留讓肌膚持續悶熱不適。</div>
+      </div>
+    </div>
+    <div class="problem-panel fade d2">
+      <div class="problem-panel-bg" style="background-image:url('assets/problem02.png');"></div>
+      <div class="problem-panel-overlay"></div>
+      <div class="problem-panel-content">
+        <div class="problem-panel-title">揮之不去的汗臭味</div>
+        <div class="problem-panel-desc">即使洗完澡，衣服一穿上又開始散發異味。</div>
+      </div>
+    </div>
+    <div class="problem-panel fade d3">
+      <div class="problem-panel-bg" style="background-image:url('assets/problem03.png');"></div>
+      <div class="problem-panel-overlay"></div>
+      <div class="problem-panel-content">
+        <div class="problem-panel-title">頭皮悶癢出油</div>
+        <div class="problem-panel-desc">長時間戴安全帽或頭巾運動，頭皮被汗水浸泡。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ OUT! HEADER + PILLARS ═══════════ -->
+<div class="out-header">
+  <div class="out-header-title blur-in">OUT!</div>
+  <div class="out-header-sub fade d1">一個字，舒緩因乾燥或汗水引起的不適感。</div>
+  <div class="out-header-desc fade d2">PlusOne 的「OUT!」科技是產品設計核心邏輯。從配方到體驗，每一個環節都圍繞著「徹底清除」這個目標。</div>
+</div>
+<div class="out-pillars">
+  <div class="out-pillar fade d1">
+    <div class="out-pillar-word" style="opacity:0;will-change:transform,opacity;"><span class="out-pillar-title">毛孔汗脂污垢</span>OUT!</div>
+    <div class="out-pillar-desc">深入毛孔，清除汗水與油脂殘留，讓皮膚感受極致清爽。</div>
+  </div>
+  <div class="out-pillar fade d2">
+    <div class="out-pillar-word" style="opacity:0;will-change:transform,opacity;"><span class="out-pillar-title">運動悶熱汗臭</span>OUT!</div>
+    <div class="out-pillar-desc">深層淨化，洗去異味來源，而不是用香味掩蓋——洗去引起異味的汗垢與髒汙，而非留下濃重人工香氛。</div>
+  </div>
+  <div class="out-pillar fade d3">
+    <div class="out-pillar-word" style="opacity:0;will-change:transform,opacity;"><span class="out-pillar-title">黏膩滑溜殘留</span>OUT!</div>
+    <div class="out-pillar-desc">沖水即淨，不留下不必要的滑感。清潔感是真的，乾淨感是真的。</div>
+  </div>
+</div>
+
 <!-- ═══════════ INTRO TEXT ═══════════ -->
 <div class="intro-text">
   <p class="blur-in">
     PLUS ONE 是針對長時間戶外運動設計的深層潔淨系列。<br>
-    不只洗淨——而是幫助你的身體重建平衡，準備好再次出發。
+    不只洗淨——而是幫助你維持肌膚油水平衡，準備好再次出發。
     <span class="en">Formulated for athletes who push further. Built for what comes after.</span>
   </p>
 </div>
@@ -679,84 +1099,20 @@ footer {
     <div class="product-hero-img fade" style="background:#f5ede8;">
       <img src="assets/plusone-shampoo.png" alt="運動強健洗髮露" class="parallax-img" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
       <div class="product-hero-vol" style="background:rgba(0,0,0,.08);color:rgba(0,0,0,.4);">500 mL</div>
-    </div>
-    <div class="product-caption fade">
-      <div class="product-caption-label">Shampoo For Athlete Hair</div>
-      <div class="product-caption-name">運動強健洗髮露</div>
-      <div class="product-caption-desc">
-        解放頭皮，讓運動後的悶熱汗臭 <strong style="color:var(--orange)">OUT!</strong><br>
-        針對油性頭皮、訓練後頭皮悶熱設計。
+      <div class="product-caption product-caption-overlay">
+        <div class="product-caption-label">Shampoo For Athlete Hair</div>
+        <div class="product-caption-name">專為長時間運動後的頭皮所設計</div>
+        <div class="product-caption-desc">
+          解放頭皮，讓運動後的悶熱汗臭 <strong style="color:var(--orange)">OUT!</strong><br>
+          針對油性髮質、訓練後頭皮悶熱設計。
+        </div>
       </div>
-      <div class="product-caption-pills">
-        <span class="product-caption-pill">高麗人蔘萃取</span>
-        <span class="product-caption-pill">何首烏萃取</span>
-        <span class="product-caption-pill">薑根萃取</span>
-      </div>
-      <div class="product-caption-scent">香調<span>清新草本木質調</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ DARK STATEMENT ═══════════ -->
-<div class="dark-statement">
-  <div class="dark-statement-watermark">RESET</div>
-  <div class="dark-statement-label fade">核心訴求</div>
-  <div class="dark-statement-text blur-in d1">
-    不只洗澡，<br>是回到可以<span class="accent">再出發</span>的狀態。
-  </div>
-  <div class="dark-statement-sub fade d2">
-    PlusOne 不只是洗髮精與沐浴露，而是運動裝備的一部分。
-  </div>
-</div>
-
-<!-- ═══════════ PRODUCT 2 — BODY WASH ═══════════ -->
-<div class="product-hero" style="border-top:1px solid rgba(0,0,0,.07);">
-  <div class="product-hero-img fade" style="background:#1c2518;">
-    <img src="assets/plusone-bodywash.png" alt="運動深層沐浴露" class="parallax-img" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
-    <div class="product-hero-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);">500 mL</div>
-  </div>
-  <div class="product-caption fade" style="background:#fff;">
-    <div class="product-caption-label">Body Wash For Active Body</div>
-    <div class="product-caption-name">運動深層沐浴露</div>
-    <div class="product-caption-desc">
-      深層清潔，毛孔汗脂污垢 <strong style="color:var(--orange)">OUT!</strong><br>
-      適合一般至油性肌膚、訓練後使用。
-    </div>
-    <div class="product-caption-pills">
-      <span class="product-caption-pill">摩洛哥堅果油</span>
-      <span class="product-caption-pill">維他命 B5+E</span>
-      <span class="product-caption-pill">蠟菊萃取</span>
-    </div>
-    <div class="product-caption-scent">香調<span>溫暖琥珀木質調</span></div>
-  </div>
-</div>
-
-<!-- ═══════════ OUT! PILLARS ═══════════ -->
-<div class="out-pillars">
-  <div class="out-pillar fade d1">
-    <div class="out-pillar-num">01</div>
-    <div class="out-pillar-word" style="opacity:0;transform:translateY(18px);will-change:transform,opacity;">OUT!</div>
-    <div class="out-pillar-title">毛孔汗脂污垢</div>
-    <div class="out-pillar-desc">深入毛孔，清除汗水與油脂殘留，讓皮膚在訓練後得以真正呼吸。</div>
-  </div>
-  <div class="out-pillar fade d2">
-    <div class="out-pillar-num">02</div>
-    <div class="out-pillar-word" style="opacity:0;transform:translateY(18px);will-change:transform,opacity;">OUT!</div>
-    <div class="out-pillar-title">運動悶熱汗臭</div>
-    <div class="out-pillar-desc">從來源抑制異味，而不是用香味掩蓋——沖洗後清爽，而非留下濃重人工香氛。</div>
-  </div>
-  <div class="out-pillar fade d3">
-    <div class="out-pillar-num">03</div>
-    <div class="out-pillar-word" style="opacity:0;transform:translateY(18px);will-change:transform,opacity;">OUT!</div>
-    <div class="out-pillar-title">黏膩滑溜殘留</div>
-    <div class="out-pillar-desc">沖水即淨，不留下不必要的滑感。清潔感是真的，乾淨感是真的。</div>
-  </div>
-</div>
-
-<!-- ═══════════ INGREDIENTS ═══════════ -->
-<section id="ingredients" class="ingredients-section">
-
-  <!-- Shampoo row -->
+<!-- ═══════════ SHAMPOO INGREDIENTS ═══════════ -->
+<section id="ingredients">
   <div class="ing-row">
     <div class="ing-image-col fade" style="background:#f5ede8;">
       <img src="assets/product_shampoo.png" alt="運動強健洗髮露" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
@@ -774,11 +1130,11 @@ footer {
           <div>
             <div class="ing-zh">高麗人蔘萃取</div>
             <div class="ing-en">Korean Ginseng Extract</div>
-            <div class="ing-desc">強韌髮根，提升頭皮對訓練壓力的耐受力。</div>
+            <div class="ing-desc">強化髮絲韌性，維持頭皮健康環境。</div>
           </div>
         </div>
         <div class="ing-item">
-          <div class="ing-dot" style="background:#667414;"></div>
+          <div class="ing-dot" style="background:#343D09;"></div>
           <div>
             <div class="ing-zh">何首烏萃取</div>
             <div class="ing-en">Polygonum Multiflorum</div>
@@ -790,65 +1146,92 @@ footer {
           <div>
             <div class="ing-zh">薑根萃取</div>
             <div class="ing-en">Ginger Root Extract</div>
-            <div class="ing-desc">促進頭皮循環，加速清潔後的恢復狀態。</div>
+            <div class="ing-desc">調理頭皮環境，維持清潔後的清爽健康。</div>
           </div>
         </div>
       </div>
       <div class="ing-scent">香調<span>清新草本木質調</span></div>
     </div>
   </div>
+</section>
 
-  <!-- Body wash row -->
-  <div class="ing-row flip" style="border-top:1px solid rgba(0,0,0,.07);">
-    <div class="ing-image-col fade" style="background:#1c2518;">
-      <img src="assets/product_bodywash.png" alt="運動深層沐浴露" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-      <div class="ing-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);">500 mL</div>
-    </div>
-    <div class="ing-text-col fade d1">
-      <div class="ing-label">精選成分 · Active Ingredients</div>
-      <div class="ing-product-name">運動深層沐浴露</div>
-      <div class="ing-product-en">Active Body Wash · Body Wash</div>
-      <div class="ing-product-desc">針對訓練後肌膚的深層修護，每次清潔都是一次重建。</div>
-      <div class="ing-divider"></div>
-      <div class="ing-items">
-        <div class="ing-item">
-          <div class="ing-dot" style="background:#FF643C;"></div>
-          <div>
-            <div class="ing-zh">摩洛哥堅果油</div>
-            <div class="ing-en">Argan Oil</div>
-            <div class="ing-desc">深層滋潤，補充訓練後肌膚流失的水分與油脂。</div>
-          </div>
-        </div>
-        <div class="ing-item">
-          <div class="ing-dot" style="background:#667414;"></div>
-          <div>
-            <div class="ing-zh">維他命 B5 + E</div>
-            <div class="ing-en">Panthenol + Tocopherol</div>
-            <div class="ing-desc">修護肌膚屏障，強化皮膚在反覆訓練後的自我保護力。</div>
-          </div>
-        </div>
-        <div class="ing-item">
-          <div class="ing-dot" style="background:#963232;"></div>
-          <div>
-            <div class="ing-zh">蠟菊萃取</div>
-            <div class="ing-en">Helichrysum Extract</div>
-            <div class="ing-desc">舒緩鎮定，有效緩解訓練後肌膚的紅熱與不適。</div>
-          </div>
-        </div>
+<!-- ═══════════ DARK STATEMENT ═══════════ -->
+<div class="dark-statement">
+  <div class="dark-statement-watermark">RESET</div>
+  <div class="dark-statement-label fade">核心訴求</div>
+  <div class="dark-statement-text blur-in d1">
+    不只洗澡，<br>是回到可以<span class="accent">再出發</span>的狀態。
+  </div>
+  <div class="dark-statement-sub fade d2">
+    PlusOne 不只是洗髮精與沐浴露，而是運動裝備的一部分。
+  </div>
+</div>
+
+<!-- ═══════════ PRODUCT 2 — BODY WASH ═══════════ -->
+<div class="product-hero" style="border-top:1px solid rgba(240,224,200,.1);">
+  <div class="product-hero-img fade" style="background:#1c2518;">
+    <img src="assets/plusone-bodywash.png" alt="運動深層沐浴露" class="parallax-img" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
+    <div class="product-hero-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);">500 mL</div>
+    <div class="product-caption product-caption-overlay">
+      <div class="product-caption-label">Body Wash For Active Body</div>
+      <div class="product-caption-name">徹底洗去肌膚上的粘膩汗脂</div>
+      <div class="product-caption-desc">
+        深層清潔，毛孔汗脂污垢 <strong style="color:var(--orange)">OUT!</strong><br>
+        適合一般至油性肌膚、訓練後使用。
       </div>
-      <div class="ing-scent">香調<span>溫暖琥珀木質調</span></div>
     </div>
   </div>
+</div>
 
-</section>
+<!-- ═══════════ BODY WASH INGREDIENTS ═══════════ -->
+<div class="ing-row flip" style="border-top:1px solid rgba(240,224,200,.1);">
+  <div class="ing-image-col fade" style="background:#1c2518;">
+    <img src="assets/product_bodywash.png" alt="運動深層沐浴露" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div class="ing-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);">500 mL</div>
+  </div>
+  <div class="ing-text-col fade d1">
+    <div class="ing-label">精選成分 · Active Ingredients</div>
+    <div class="ing-product-name">運動深層沐浴露</div>
+    <div class="ing-product-en">Active Body Wash · Body Wash</div>
+    <div class="ing-product-desc">舒緩訓練後的肌膚乾燥，每次清潔都是一次清爽重啟。</div>
+    <div class="ing-divider"></div>
+    <div class="ing-items">
+      <div class="ing-item">
+        <div class="ing-dot" style="background:#FF643C;"></div>
+        <div>
+          <div class="ing-zh">摩洛哥堅果油</div>
+          <div class="ing-en">Argan Oil</div>
+          <div class="ing-desc">極致滋潤，補充訓練後肌膚流失的水分與油脂。</div>
+        </div>
+      </div>
+      <div class="ing-item">
+        <div class="ing-dot" style="background:#343D09;"></div>
+        <div>
+          <div class="ing-zh">維他命 B5 + E</div>
+          <div class="ing-en">Panthenol + Tocopherol</div>
+          <div class="ing-desc">深層滋潤並強化肌膚屏障，提升對環境傷害的保護力。</div>
+        </div>
+      </div>
+      <div class="ing-item">
+        <div class="ing-dot" style="background:#963232;"></div>
+        <div>
+          <div class="ing-zh">蠟菊萃取</div>
+          <div class="ing-en">Helichrysum Extract</div>
+          <div class="ing-desc">溫和呵護，舒緩訓練後因乾燥引起的肌膚不適感。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ing-scent">香調<span>溫暖琥珀木質調</span></div>
+  </div>
+</div>
 
 <!-- ═══════════ PHILOSOPHY ═══════════ -->
 <section id="philosophy">
   <div class="phi-label fade">Target Audience</div>
   <div class="phi-statement blur-in d1">每一場硬仗，<br>都值得一次徹底的清洗</div>
   <div class="phi-body fade d2">
-    PlusOne 不只是洗髮精與沐浴露，而是運動裝備的一部分。它和跑鞋、水壺、補給一樣，屬於訓練結束後的必要配備。
-    我們強調的不是「洗澡變享受」，而是「洗掉殘留，重建平衡，保持最佳狀態」。
+    無論是 42K 的馬拉松、226K 的超級鐵人三項，還是一場週末的越野跑—— 你的身體承受了極限的考驗，它值得最專業的清潔。
+    PlusOne 與你並肩，從起跑線到終點線之後。 因為真正的潔淨歸零，從洗去這場硬仗開始。
   </div>
   <div class="phi-tags fade d3">
     <span class="phi-tag">Recovery</span>
@@ -857,12 +1240,27 @@ footer {
     <span class="phi-tag">No Residue</span>
     <span class="phi-tag">Reset</span>
   </div>
-  <div class="phi-uses fade d2">
-    <div class="phi-use-row"><div class="phi-use-num">01</div><div class="phi-use-text">跑步・路跑・馬拉松</div></div>
-    <div class="phi-use-row"><div class="phi-use-num">02</div><div class="phi-use-text">鐵人三項・游泳・自行車</div></div>
-    <div class="phi-use-row"><div class="phi-use-num">03</div><div class="phi-use-text">越野跑・登山・戶外訓練</div></div>
-    <div class="phi-use-row"><div class="phi-use-num">04</div><div class="phi-use-text">健身・重訓・高強度訓練</div></div>
-    <div class="phi-use-row"><div class="phi-use-num">05</div><div class="phi-use-text">任何訓練後需要 Reset 的時刻</div></div>
+  <div class="phi-use-cards fade d2">
+    <div class="phi-use-card">
+      <div class="phi-use-card-bg" style="background-image:url('assets/Target Audience01.png');"></div>
+      <div class="phi-use-card-overlay"></div>
+      <div class="phi-use-card-text">跑步・路跑<br>馬拉松</div>
+    </div>
+    <div class="phi-use-card">
+      <div class="phi-use-card-bg" style="background-image:url('assets/Target Audience02.png');"></div>
+      <div class="phi-use-card-overlay"></div>
+      <div class="phi-use-card-text">鐵人三項・游泳<br>自行車</div>
+    </div>
+    <div class="phi-use-card">
+      <div class="phi-use-card-bg" style="background-image:url('assets/Target Audience03.png');"></div>
+      <div class="phi-use-card-overlay"></div>
+      <div class="phi-use-card-text">越野跑・登山<br>戶外訓練</div>
+    </div>
+    <div class="phi-use-card">
+      <div class="phi-use-card-bg" style="background-image:url('assets/Target Audience04.png');"></div>
+      <div class="phi-use-card-overlay"></div>
+      <div class="phi-use-card-text">健身・重訓<br>高強度訓練</div>
+    </div>
   </div>
 </section>
 
@@ -956,6 +1354,15 @@ footer {
   </div>
 </section>
 
+<!-- ═══════════ SHOP NOW CTA ═══════════ -->
+<section class="shop-cta">
+  <div class="shop-cta-label fade">Shop Now</div>
+  <div class="shop-cta-title blur-in d1">準備好讓汗水髒污<br><span class="shop-cta-accent">OUT!</span> 了嗎？</div>
+  <div class="shop-cta-actions fade d2">
+    <a class="shop-cta-btn" href="#products">立即選購</a>
+  </div>
+</section>
+
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="footer-inner">
@@ -1005,8 +1412,24 @@ const blurObs = new IntersectionObserver(entries => {
 }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 blurEls.forEach(el => blurObs.observe(el));
 
+/* ── Hero carousel ── */
+(function() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots   = document.querySelectorAll('.hero-dot');
+  let cur = 0, timer;
+  function goTo(i) {
+    slides[cur].style.opacity = '0';
+    cur = (i + slides.length) % slides.length;
+    slides[cur].style.opacity = '1';
+    dots.forEach((d, j) => d.classList.toggle('active', j === cur));
+  }
+  dots.forEach(d => d.addEventListener('click', () => { clearInterval(timer); goTo(+d.dataset.i); reset(); }));
+  function reset() { timer = setInterval(() => goTo(cur + 1), 4500); }
+  reset();
+})();
+
 /* ── Parallax + scroll-scrub (rAF-throttled) ── */
-const heroBgImg    = document.getElementById('hero-bg-img');
+const heroCarousel = document.getElementById('hero-carousel');
 const parallaxImgs = document.querySelectorAll('.parallax-img');
 const darkSection  = document.querySelector('.dark-statement-text');
 const outPillars   = document.querySelectorAll('.out-pillar-word');
@@ -1020,8 +1443,8 @@ function updateScroll() {
   nav.classList.toggle('inv', y < 40);
 
   /* Hero parallax */
-  if (heroBgImg) {
-    heroBgImg.style.transform = isMobile ? '' : `translateY(${y * 0.32}px)`;
+  if (heroCarousel) {
+    heroCarousel.style.transform = isMobile ? '' : `translateY(${y * 0.32}px)`;
   }
 
   /* Product image parallax */
@@ -1045,8 +1468,8 @@ function updateScroll() {
   outPillars.forEach((w, i) => {
     const r = w.getBoundingClientRect();
     const p = Math.max(0, Math.min(1, 1 - r.bottom / (window.innerHeight * 1.1)));
-    w.style.transform = `translateY(${(1 - p) * 18}px)`;
-    w.style.opacity   = Math.min(1, p * 3);
+    w.style.setProperty('--ty', `${(1 - p) * 18}px`);
+    w.style.opacity = Math.min(1, p * 3);
   });
 
   ticking = false;
@@ -1073,6 +1496,18 @@ updateScroll();
   dots.forEach(d => d.addEventListener('click', () => { clearInterval(timer); go(+d.dataset.i); reset(); }));
   function reset() { timer = setInterval(() => go(cur + 1), 5500); }
   reset();
+})();
+
+/* ── Theme toggle ── */
+(function() {
+  const body = document.body;
+  const btn  = document.getElementById('theme-toggle');
+  const saved = localStorage.getItem('plusone-theme');
+  if (saved === 'light') body.classList.remove('dark');
+  btn.addEventListener('click', function() {
+    body.classList.toggle('dark');
+    localStorage.setItem('plusone-theme', body.classList.contains('dark') ? 'dark' : 'light');
+  });
 })();
 </script>
 
