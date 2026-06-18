@@ -546,6 +546,11 @@ body.dark #nav.inv .theme-thumb { background: #f0e0c8; }
   transition: background .15s, border-color .15s;
 }
 .shop-cta-btn-sec:hover { background: rgba(240,224,200,.08); border-color: var(--cream3); }
+.shop-cta-btn-alt {
+  background: transparent; color: var(--orange);
+  border: 1.5px solid var(--orange);
+}
+.shop-cta-btn-alt:hover { background: var(--orange); color: #fff; opacity: 1; transform: translateY(-2px); }
 
 /* ── Target Audience — image + text cards ───── */
 .phi-use-cards {
@@ -995,7 +1000,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
     <a href="#specs">規格</a>
   </nav>
   <button id="theme-toggle" class="theme-toggle" title="切換主題"><span class="theme-track"><span class="theme-thumb"></span></span></button>
-  <a class="nav-cta" href="#products">立即購買</a>
+  <a class="nav-cta" href="#shop-now">立即購買</a>
 </header>
 
 <!-- ═══════════ HERO — dark full-bleed ═══════════ -->
@@ -1360,11 +1365,12 @@ body.dark .ingredients-section { border-top-color: var(--border); }
 </section>
 
 <!-- ═══════════ SHOP NOW CTA ═══════════ -->
-<section class="shop-cta">
+<section id="shop-now" class="shop-cta">
   <div class="shop-cta-label fade">Shop Now</div>
   <div class="shop-cta-title blur-in d1">準備好讓汗水髒污<br><span class="shop-cta-accent">OUT!</span> 了嗎？</div>
   <div class="shop-cta-actions fade d2">
-    <a class="shop-cta-btn" href="#products">立即選購</a>
+    <a class="shop-cta-btn" href="https://www.runbase.tw/products/plusone-bodywash" target="_blank" rel="noopener">購買深層沐浴露</a>
+    <a class="shop-cta-btn shop-cta-btn-alt" href="https://www.runbase.tw/products/plusone-shampoo" target="_blank" rel="noopener">購買強健洗髮露</a>
   </div>
 </section>
 
