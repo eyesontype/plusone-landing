@@ -72,6 +72,7 @@
   ]
 }
 </script>
+<link rel="preload" as="image" href="assets/Hero-image-01.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/Favicon/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/Favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/Favicon/favicon-96x96.png">
@@ -79,10 +80,10 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/Favicon/favicon-180x180.png">
 <style>
 /* ── Fonts ── */
-@font-face { font-family:"Alegreya Sans SC"; src:url("fonts/AlegreyaSansSC-Bold.ttf") format("truetype"); font-weight:700; }
-@font-face { font-family:"Alegreya Sans SC"; src:url("fonts/AlegreyaSansSC-Black.ttf") format("truetype"); font-weight:900; }
-@font-face { font-family:"Mona Sans"; src:url("fonts/MonaSans-VariableFont.ttf") format("truetype"); font-weight:100 900; font-stretch:75% 125%; }
-@font-face { font-family:"Noto Sans TC"; src:url("fonts/NotoSansTC-VariableFont.ttf") format("truetype"); font-weight:100 900; }
+@font-face { font-family:"Alegreya Sans SC"; src:url("fonts/AlegreyaSansSC-Bold.ttf") format("truetype"); font-weight:700; font-display:swap; }
+@font-face { font-family:"Alegreya Sans SC"; src:url("fonts/AlegreyaSansSC-Black.ttf") format("truetype"); font-weight:900; font-display:swap; }
+@font-face { font-family:"Mona Sans"; src:url("fonts/MonaSans-VariableFont.ttf") format("truetype"); font-weight:100 900; font-stretch:75% 125%; font-display:swap; }
+@font-face { font-family:"Noto Sans TC"; src:url("fonts/NotoSansTC-VariableFont.ttf") format("truetype"); font-weight:100 900; font-display:swap; }
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
@@ -1061,14 +1062,15 @@ body.dark .ingredients-section { border-top-color: var(--border); }
 <header id="nav" class="inv">
   <a href="javascript:location.reload()" style="display:contents;"><img class="nav-logo nav-logo-dark" src="assets/Logo_H.png" alt="PLUS ONE"></a>
   <a href="javascript:location.reload()" style="display:contents;"><img class="nav-logo nav-logo-light" src="assets/Logo_H_white.png" alt="PLUS ONE"></a>
-  <nav>
+  <nav aria-label="主導航">
     <a href="#products">產品</a>
     <a href="#philosophy">品牌理念</a>
     <a href="#specs">規格</a>
   </nav>
-  <button id="theme-toggle" class="theme-toggle" title="切換主題"><span class="theme-track"><span class="theme-thumb"></span></span></button>
+  <button id="theme-toggle" class="theme-toggle" aria-label="切換深色模式" title="切換主題"><span class="theme-track"><span class="theme-thumb"></span></span></button>
   <a class="nav-cta" href="#shop-now">立即購買</a>
 </header>
+<main id="main-content">
 
 <!-- ═══════════ HERO — dark full-bleed ═══════════ -->
 <section style="background:#111; height:100vh; min-height:640px; display:flex; align-items:flex-end; justify-content:center; position:relative; overflow:hidden;">
@@ -1093,10 +1095,10 @@ body.dark .ingredients-section { border-top-color: var(--border); }
     </div>
     <!-- carousel dots -->
     <div style="display:flex;gap:10px;justify-content:center;margin-top:28px;">
-      <button class="hero-dot active" data-i="0"></button>
-      <button class="hero-dot" data-i="1"></button>
-      <button class="hero-dot" data-i="2"></button>
-      <button class="hero-dot" data-i="3"></button>
+      <button class="hero-dot active" data-i="0" aria-label="第 1 張圖片"></button>
+      <button class="hero-dot" data-i="1" aria-label="第 2 張圖片"></button>
+      <button class="hero-dot" data-i="2" aria-label="第 3 張圖片"></button>
+      <button class="hero-dot" data-i="3" aria-label="第 4 張圖片"></button>
     </div>
   </div>
 
@@ -1174,7 +1176,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
 <section id="products">
   <div class="product-hero">
     <div class="product-hero-img fade" style="background:#f5ede8;">
-      <img src="assets/plusone-shampoo.png" alt="運動強健洗髮露" class="parallax-img" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
+      <img src="assets/plusone-shampoo.png" alt="運動強健洗髮露" class="parallax-img" loading="lazy" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
       <div class="product-hero-vol" style="background:rgba(0,0,0,.08);color:rgba(0,0,0,.4);">500 mL</div>
       <div class="product-caption product-caption-overlay">
         <div class="product-caption-label">Shampoo For Athlete Hair</div>
@@ -1192,7 +1194,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
 <section id="ingredients">
   <div class="ing-row">
     <div class="ing-image-col fade" style="background:#f5ede8;">
-      <img src="assets/product_shampoo.png" alt="運動強健洗髮露" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <img src="assets/product_shampoo.png" alt="運動強健洗髮露" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
       <div class="ing-vol" style="background:rgba(0,0,0,.07);color:rgba(0,0,0,.35);">500 mL</div>
     </div>
     <div class="ing-text-col fade d1">
@@ -1247,7 +1249,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
 <!-- ═══════════ PRODUCT 2 — BODY WASH ═══════════ -->
 <div class="product-hero" style="border-top:1px solid rgba(240,224,200,.1);">
   <div class="product-hero-img fade" style="background:#1c2518;">
-    <img src="assets/plusone-bodywash.png" alt="運動深層沐浴露" class="parallax-img" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
+    <img src="assets/plusone-bodywash.png" alt="運動深層沐浴露" class="parallax-img" loading="lazy" style="position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;">
     <div class="product-hero-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);">500 mL</div>
     <div class="product-caption product-caption-overlay">
       <div class="product-caption-label">Body Wash For Active Body</div>
@@ -1263,7 +1265,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
 <!-- ═══════════ BODY WASH INGREDIENTS ═══════════ -->
 <div class="ing-row flip" style="border-top:1px solid rgba(240,224,200,.1);">
   <div class="ing-image-col fade" style="background:#1c2518;">
-    <img src="assets/product_bodywash.png" alt="運動深層沐浴露" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <img src="assets/product_bodywash.png" alt="運動深層沐浴露" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <div class="ing-vol" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);">500 mL</div>
   </div>
   <div class="ing-text-col fade d1">
@@ -1353,7 +1355,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
   <div class="specs-grid">
     <div class="spec-item fade d1">
       <div class="spec-img-wrap">
-        <img class="spec-img" src="assets/Packaging-1.jpg" alt="按壓式瓶頭">
+        <img class="spec-img" src="assets/Packaging-1.jpg" alt="按壓式瓶頭" loading="lazy">
       </div>
       <div class="spec-body">
         <div class="spec-num">01</div>
@@ -1363,7 +1365,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
     </div>
     <div class="spec-item fade d2">
       <div class="spec-img-wrap">
-        <img class="spec-img" src="assets/Packaging-2.png" alt="防滑瓶身">
+        <img class="spec-img" src="assets/Packaging-2.png" alt="防滑瓶身" loading="lazy">
       </div>
       <div class="spec-body">
         <div class="spec-num">02</div>
@@ -1373,7 +1375,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
     </div>
     <div class="spec-item fade d3">
       <div class="spec-img-wrap">
-        <img class="spec-img" src="assets/Packaging-3.jpg" alt="500 mL 大容量">
+        <img class="spec-img" src="assets/Packaging-3.jpg" alt="500 mL 大容量" loading="lazy">
       </div>
       <div class="spec-body">
         <div class="spec-num">03</div>
@@ -1383,7 +1385,7 @@ body.dark .ingredients-section { border-top-color: var(--border); }
     </div>
     <div class="spec-item fade d4">
       <div class="spec-img-wrap">
-        <img class="spec-img" src="assets/Packaging-4.jpg" alt="台灣製造">
+        <img class="spec-img" src="assets/Packaging-4.jpg" alt="台灣製造" loading="lazy">
       </div>
       <div class="spec-body">
         <div class="spec-num">04</div>
@@ -1402,32 +1404,32 @@ body.dark .ingredients-section { border-top-color: var(--border); }
       <div class="t-slide">
         <div class="t-quote">每次訓練結束後，這是我第一個拿的東西。<br>洗得掉訓練味、頭皮會呼吸，沖水後乾淨不殘留。<br>更像一件運動清潔工具，不是一般的沐浴產品。</div>
         <div class="t-sep"></div>
-        <img class="t-avatar" src="assets/Chih-Wei Chen.jpg" alt="陳志偉">
+        <img class="t-avatar" src="assets/Chih-Wei Chen.jpg" alt="陳志偉" loading="lazy">
         <div class="t-name">陳志偉 / Chih-Wei Chen</div>
         <div class="t-role">Ultra Trail Runner · UTMB Finisher</div>
       </div>
       <div class="t-slide">
         <div class="t-quote">比賽後全身又黏又臭，以前只能用普通沐浴乳勉強撐過。<br>現在換了 PlusOne，真的感覺毛孔被清乾淨，<br>肌膚沒有以前訓練後的那種緊繃不適感。</div>
         <div class="t-sep"></div>
-        <img class="t-avatar" src="assets/Chia-Jung Lin.jpg" alt="林佳蓉">
+        <img class="t-avatar" src="assets/Chia-Jung Lin.jpg" alt="林佳蓉" loading="lazy">
         <div class="t-name">林佳蓉 / Chia-Jung Lin</div>
         <div class="t-role">Triathlete · IRONMAN 70.3 Finisher</div>
       </div>
       <div class="t-slide">
         <div class="t-quote">重訓後頭皮特別悶，以前洗完還是會癢。<br>用了這款之後頭皮呼吸順多了，也不會乾燥脫屑。<br>配方乾淨，用起來很安心。</div>
         <div class="t-sep"></div>
-        <img class="t-avatar" src="assets/Chien-Lin Wu.jpg" alt="吳建霖">
+        <img class="t-avatar" src="assets/Chien-Lin Wu.jpg" alt="吳建霖" loading="lazy">
         <div class="t-name">吳建霖 / Chien-Lin Wu</div>
         <div class="t-role">Powerlifter · 健身教練</div>
       </div>
     </div>
   </div>
   <div class="t-controls">
-    <button class="t-arrow" id="t-prev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-    <button class="t-dot active" data-i="0"></button>
-    <button class="t-dot" data-i="1"></button>
-    <button class="t-dot" data-i="2"></button>
-    <button class="t-arrow" id="t-next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    <button class="t-arrow" id="t-prev" aria-label="上一則評價"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+    <button class="t-dot active" data-i="0" aria-label="第 1 則評價"></button>
+    <button class="t-dot" data-i="1" aria-label="第 2 則評價"></button>
+    <button class="t-dot" data-i="2" aria-label="第 3 則評價"></button>
+    <button class="t-arrow" id="t-next" aria-label="下一則評價"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
   </div>
 </section>
 
@@ -1440,6 +1442,8 @@ body.dark .ingredients-section { border-top-color: var(--border); }
     <a class="shop-cta-btn shop-cta-btn-alt" href="https://www.runbase.tw/products/plusone-shampoo" target="_blank" rel="noopener">購買強健洗髮露</a>
   </div>
 </section>
+
+</main>
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
